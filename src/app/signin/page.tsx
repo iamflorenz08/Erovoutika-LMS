@@ -2,11 +2,12 @@
 import Image from "next/image"
 import Nodes from "@/images/nodes.png"
 import Logo from "@/images/logo.png";
+import Link from "next/link";
 import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle'
 
 export default function SignIn() {
   return (
-    <div className="bg-[#F2F8FA] h-screen w-screen flex justify-center items-center">
+    <div className="bg-dirty-white h-screen w-screen flex justify-center items-center">
       <div className="flex rounded-2xl overflow-hidden shadow-xl">
         <div className="bg-primary relative">
           <Image
@@ -34,7 +35,7 @@ export default function SignIn() {
               type="email"
               id="email"
               className="peer sam px-4 h-[64px] w-[448px] text-xl border border-gray rounded-lg outline-none focus:border-blue-500 transition duration-200"
-              placeholder=" "/>
+              placeholder=" " />
             <label
               htmlFor="email"
               className="absolute left-0 px-2 transition duration-200 translate-x-3 -translate-y-[10px] bg-white text-gray
@@ -81,7 +82,7 @@ export default function SignIn() {
 
           <div className="mt-[40px] flex justify-center items-center gap-3">
             <label className="text-[16px] text-semi-black">Don’t have an account?</label>
-            <button className="px-[12px] py-[4px] text-primary bg-[#DADAFF] rounded-lg">Sign Up</button>
+            <Link href="/signup" className="px-[12px] py-[4px] text-primary bg-[#DADAFF] rounded-lg">Sign Up</Link>
           </div>
         </div>
       </div>
