@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
 
 }
@@ -12,5 +11,5 @@
 }
 
 body {
- 
+  
 }

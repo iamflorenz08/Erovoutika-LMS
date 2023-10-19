@@ -1,36 +1,14 @@
-'use client';
+
 import Image from "next/image"
 import Nodes from "@/images/nodes.png"
 import Logo from "@/images/logo.png";
 import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle'
-import React, { useState} from "react";
-import SignUpModal from "./components/SignUpModal"
-
-
-
 
 export default function SignIn() {
-
-  const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
-
-  const openSignUpModal = () => {
-    setSignUpModalOpen(true);
-  };
-
-  const closeSignUpModal = () => {
-    setSignUpModalOpen(false);
-  };
-
- 
-
-  function setIsOpen(arg0: boolean): void {
-    throw new Error("Function not implemented.");
-  }
-
   return (
     <div className="bg-[#F2F8FA] h-screen w-screen flex justify-center items-center">
       <div className="flex rounded-2xl overflow-hidden shadow-xl">
-        <div className="bg-primary relative md:w-2/5">
+        <div className="bg-primary relative">
           <Image
             src={Nodes}
             alt="Nodes"
@@ -103,10 +81,8 @@ export default function SignIn() {
 
           <div className="mt-[40px] flex justify-center items-center gap-3">
             <label className="text-[16px] text-semi-black">Don’t have an account?</label>
-            <button onClick={openSignUpModal} className="px-[12px] py-[4px] text-primary bg-[#DADAFF] rounded-lg">Sign Up</button>
+            <button className="px-[12px] py-[4px] text-primary bg-[#DADAFF] rounded-lg">Sign Up</button>
           </div>
-
-          <SignUpModal isOpen={isSignUpModalOpen} onClose={closeSignUpModal} />
         </div>
       </div>
     </div>
