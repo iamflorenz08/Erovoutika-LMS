@@ -2,7 +2,6 @@
 import Image from "next/image"
 import Nodes from "@/images/nodes.png"
 import Logo from "@/images/logo.png";
-import Link from "next/link";
 import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle'
 import React, { useState} from "react";
 import SignUpModal from "./SignUpModal"

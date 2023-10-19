@@ -1,9 +1,8 @@
 // @useClient
 import React from "react";
 import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle'
-import { FaTimes } from 'react-icons/fa';
-
-
+import { FaTimes } from '@react-icons/all-files/fa/FaTimes';
+import Link from "next/link";
 interface SignUpModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -48,11 +47,11 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
               id="email"
               className="bg-white py-4 px-4 outline-none w-full rounded-tl-lg rounded-bl-lg border border-gray duration-200"
               placeholder=" "/>
-                <button type="button" className="py-3 px-4 inline-flex flex-shrink-0 justify-center items-center
+                <Link href={"/signup"} type="button" className="py-3 px-4 inline-flex flex-shrink-0 justify-center items-center
                  gap-2 rounded-r-md border border-transparent font-semibold bg-primary hover:bg-[#000067]
                   text-white focus:z-10 focus:outline-none focus:ring-2 transition-all text-sm">
                   Get Started
-                </button>
+                </Link>
             <label
               htmlFor="email"
               className="absolute left-0 px-2 transition duration-200 translate-x-3 -translate-y-[10px] 
