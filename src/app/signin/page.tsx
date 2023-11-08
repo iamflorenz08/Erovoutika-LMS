@@ -1,15 +1,15 @@
-'use client';
+'use client'
 import Image from "next/image"
 import Nodes from "@/images/nodes.png"
 import Logo from "@/images/logo.png";
 import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle'
 import { useState } from "react";
-import SignUpModal from "./SignUpModal"
+import SignUpModal from "@/components/SignUpModal"
+
 
 
 
 export default function SignIn() {
-
   const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
 
   return (
