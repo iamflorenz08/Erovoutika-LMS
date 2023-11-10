@@ -4,13 +4,13 @@ import { CgNotes } from '@react-icons/all-files/cg/Cgnotes';
 import { BiBookmarkMinus } from '@react-icons/all-files/bi/BiBookmarkMinus';
 import { FiInbox } from '@react-icons/all-files/fi/FiInbox';
 import { BsCalendar } from '@react-icons/all-files/bs/BsCalendar';
-import { FaBookReader} from '@react-icons/all-files/fa/FaBookReader';
+import { FaBookReader } from '@react-icons/all-files/fa/FaBookReader';
 import { FiSettings } from '@react-icons/all-files/fi/FiSettings';
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GiHamburgerMenu } from "@react-icons/all-files/gi/GiHamburgerMenu";
 import { useSelectedLayoutSegment } from "next/navigation"
 import Link from 'next/link';
 import { useState } from 'react';
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from "@react-icons/all-files/ai/AiOutlineClose";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join('');
@@ -34,7 +34,7 @@ const Sidebar = () => {
     { name: 'Settings', href: "/settings", icon: <FiSettings />, current: `/${segment}` == "/settings" ? true : false }
   ]
 
- 
+
 
   return (
     <div className="flex grow flex-col">
@@ -50,18 +50,18 @@ const Sidebar = () => {
             <ul role="list" className="-mx-2 space-y-6">
               {sidebarPages.map((option, index) => (
                 <li key={option.name}>
-                <Link
-                      href={option.href}
-                      className={classNames(
-                        option.current ? 'bg-primary text-white m-2' : 'text-[#A3AED0] hover:text-primary hover:primary',
-                        'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
-                      )}
-                    >
-                      <div className="text-2xl group-hover:text-primary h-6 w-6">
-                        {option.icon}
-                      </div>
-                      <div className="text-[16px]">{option.name}</div>
-                    </Link>
+                  <Link
+                    href={option.href}
+                    className={classNames(
+                      option.current ? 'bg-primary text-white m-2' : 'text-[#A3AED0] hover:text-primary hover:primary',
+                      'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                    )}
+                  >
+                    <div className="text-2xl group-hover:text-primary h-6 w-6">
+                      {option.icon}
+                    </div>
+                    <div className="text-[16px]">{option.name}</div>
+                  </Link>
                 </li>
               ))}
             </ul>

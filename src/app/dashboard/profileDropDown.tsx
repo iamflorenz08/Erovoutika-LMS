@@ -1,6 +1,6 @@
 // components/ProfileDropDown.tsx
 import { FunctionComponent } from 'react';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle } from '@react-icons/all-files/fa/FaUserCircle';
 
 interface ProfileDropDownProps {
   name: string;

@@ -3,14 +3,33 @@ import Image from "next/image"
 import Nodes from "@/images/nodes.png"
 import Logo from "@/images/logo.png";
 import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle'
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SignUpModal from "@/components/SignUpModal"
-
-
-
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
 export default function SignIn() {
-  const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
+  const session = useSession()
+  const [isSignUpModalOpen, setSignUpModalOpen] = useState(false)
+  const router = useRouter()
+  const email = useRef<string>()
+  const password = useRef<string>()
+  
+  const handleSubmit = async () => {
+    const res = await signIn('credentials', {
+      email: email.current,
+      password: password.current,
+      redirect: false
+    })
+
+    if (res?.ok) {
+      router.push('/')
+    }
+    else {
+      password.current = ''
+    }
+  }
 
   return (
     <div className="bg-dirty-white h-screen w-screen flex justify-center items-center">
@@ -40,26 +59,28 @@ export default function SignIn() {
             <input
               type="email"
               id="email"
-              className="peer sam px-4 h-[64px] w-[448px] text-xl border border-gray rounded-lg outline-none focus:border-blue-500 transition duration-200"
+              onChange={(e) => { email.current = e.target.value }}
+              className="peer input-group px-4 h-[64px] w-[448px] text-xl border border-gray rounded-lg outline-none focus:border-blue-500 transition duration-200"
               placeholder=" " />
             <label
               htmlFor="email"
               className="absolute left-0 px-2 transition duration-200 translate-x-3 -translate-y-[10px] bg-white text-gray
-              peer-[.sam]:peer-placeholder-shown:translate-y-[18.5px] peer-[.sam]:peer-placeholder-shown:text-xl peer-[.sam]:peer-placeholder-shown:px-0
-              peer-[.sam]:peer-placeholder-shown:mx-2 peer-[.sam]:peer-focus:text-blue-500 cursor-text">Email</label>
+              peer-[.input-group]:peer-placeholder-shown:translate-y-[18.5px] peer-[.input-group]:peer-placeholder-shown:text-xl peer-[.input-group]:peer-placeholder-shown:px-0
+              peer-[.input-group]:peer-placeholder-shown:mx-2 peer-[.input-group]:peer-focus:text-blue-500 cursor-text">Email</label>
           </div>
 
           <div className="relative mt-[16px]">
             <input
               type="password"
               id="password"
-              className="peer sam px-4 h-[64px] w-[448px] text-xl border border-gray rounded-lg outline-none focus:border-blue-500 transition duration-200"
+              onChange={(e) => { password.current = e.target.value }}
+              className="peer input-group px-4 h-[64px] w-[448px] text-xl border border-gray rounded-lg outline-none focus:border-blue-500 transition duration-200"
               placeholder=" " />
             <label
               htmlFor="password"
               className="absolute left-0 px-2 transition duration-200 translate-x-3 -translate-y-[10px] bg-white text-gray
-              peer-[.sam]:peer-placeholder-shown:translate-y-[18.5px] peer-[.sam]:peer-placeholder-shown:text-xl peer-[.sam]:peer-placeholder-shown:px-0
-              peer-[.sam]:peer-placeholder-shown:mx-2 peer-[.sam]:peer-focus:text-blue-500 cursor-text">Password</label>
+              peer-[.input-group]:peer-placeholder-shown:translate-y-[18.5px] peer-[.input-group]:peer-placeholder-shown:text-xl peer-[.input-group]:peer-placeholder-shown:px-0
+              peer-[.input-group]:peer-placeholder-shown:mx-2 peer-[.input-group]:peer-focus:text-blue-500 cursor-text">Password</label>
           </div>
 
           <div className="mt-[16px] flex justify-between">
@@ -71,6 +92,7 @@ export default function SignIn() {
           </div>
 
           <button
+            onClick={handleSubmit}
             className="mt-[43px] w-full bg-primary rounded-lg text-white text-[20px] py-[15px] font-semibold hover:bg-[#000067]">
             Sign In
           </button>

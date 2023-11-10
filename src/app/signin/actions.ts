@@ -14,18 +14,18 @@ export async function createUserEmail(prevState: any, formData: FormData) {
 
         //Returns if the email is invalid
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-        if(!emailRegex.test(email)) return { message: "Invalid email address." }
+        if (!emailRegex.test(email)) return { message: "Invalid email address." }
 
 
         //Returns if the email is already used
         const res = await fetch(`${process.env.API_URI}/api/v1/auth/check?email=${email}`, { cache: "no-cache" })
         const check: ICheckEmail = await res.json()
-        if(check.isEmailExisted) return {message: "Email is in used."}
-        
+        if (check.isEmailExisted) return { message: "Email is in used." }
+
     } catch (e) {
         console.log(e)
         return { message: "Network error." }
     }
-
+    
     return redirect(`/signup/?email=${email}`)
 }

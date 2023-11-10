@@ -12,7 +12,6 @@ const layout = (props: Props) => {
             </div>
             <main className="w-full">
                 {props.children}
-
             </main>
         </div>
     )

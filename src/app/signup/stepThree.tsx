@@ -1,7 +1,9 @@
 import FloatingLabelInput from "@/components/FloatingLabelInput";
 import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import { IUserDetails } from "./page";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
+import submitForm from "./submitForm";
+import { useRouter } from "next/navigation";
 
 interface IStep {
     userDetails: IUserDetails,
@@ -16,12 +18,15 @@ interface IErrorCheck {
 }
 
 export default function StepThree({ userDetails, setUserDetails, setCurrentStep }: IStep) {
+    const router = useRouter()
+    const { isLoading, submit, error: submitFormError } = submitForm()
     const [error, setError] = useState<IErrorCheck>({
         password: '',
         confirmPassword: '',
     })
 
-    const validate = () => {
+    
+    const validateAndSubmit = async () => {
         let isValid = true
         //Validate Password
         if (userDetails.password && userDetails.password.length > 5) {
@@ -46,8 +51,10 @@ export default function StepThree({ userDetails, setUserDetails, setCurrentStep 
 
             isValid = false
         }
-
-        isValid && setCurrentStep(value => value + 1)
+        
+        if (isValid && await submit(userDetails)) {
+            router.push('/dashboard')
+        }
     }
 
     return (
@@ -81,11 +88,23 @@ export default function StepThree({ userDetails, setUserDetails, setCurrentStep 
 
 
                 <button
-                    className="p-[16px] bg-primary w-full font-bold text-white rounded-lg"
-                    onClick={validate}>
-                    Done
+                    className="p-[16px] bg-primary w-full font-bold text-white rounded-lg "
+                    onClick={validateAndSubmit}>
+                    {isLoading ? (
+                        <div className="flex justify-center items-center gap-3">
+                            <div
+                                className="inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                role="status">
+                            </div>
+                            Processing...
+                        </div>
+                    ) : 'Done'}
+
+
                 </button>
+
             </div>
+
         </div>
     )
 }

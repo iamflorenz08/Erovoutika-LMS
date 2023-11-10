@@ -3,6 +3,7 @@ import { useState } from "react"
 import StepOne from "./stepOne"
 import StepTwo from "./stepTwo"
 import StepThree from "./stepThree"
+import Link from "next/link"
 
 interface IMonths {
     index: number,
@@ -15,6 +16,7 @@ interface IBirthDate {
     year?: number,
 }
 export interface IUserDetails {
+    email?: string,
     firstName?: string,
     lastName?: string,
     birthDate?: IBirthDate,
@@ -30,10 +32,11 @@ const titles: string[] = [
 ]
 
 
-export default function SignUpPage() {
+export default function SignUpPage({ searchParams: { email } }: { searchParams: { email: string } }) {
     const [currentStep, setCurrentStep] = useState<number>(0)
     const [userDetails, setUserDetails] = useState<IUserDetails>(
         {
+            email,
             firstName: "",
             lastName: "",
             birthDate: { month: NaN, day: NaN, year: NaN },
@@ -42,10 +45,6 @@ export default function SignUpPage() {
             confirmPassword: "",
         }
     )
-
-    const submitForm = async () => {
-        const data = await fetch(process.env.API_URI as string, {method: 'post'})
-    }
 
     return (
         <div className="bg-dirty-white w-screen h-screen flex flex-col justify-center items-center">
@@ -95,7 +94,7 @@ export default function SignUpPage() {
             </div>
             <div className="mt-3 flex items-center gap-2">
                 <span>Already have an account?</span>
-                <button className="text-primary bg-primary-light-100 px-2 py-0.5 rounded-md">Sign In</button>
+                <Link href={'/signin'} className="text-primary bg-primary-light-100 px-2 py-0.5 rounded-md">Sign In</Link>
             </div>
         </div >
     )
