@@ -26,22 +26,20 @@ const Sidebar = () => {
   const segment = useSelectedLayoutSegment();
 
   const sidebarPages = [
-    { name: "Dashboard", href: "/dashboard", icon: <RiDashboardLine />, current: !segment ? true : false },
-    { name: "Course", href: "/course", icon: <CgNotes />, current: `/${segment}` == "/course" ? true : false },
-    { name: 'Forum', href: "/forum", icon: <BiBookmarkMinus />, current: `/${segment}` == "/forum" ? true : false },
-    { name: 'Calendar', href: "/calendar", icon: <BsCalendar />, current: `/${segment}` == "/calendar" ? true : false },
-    { name: 'Account', href: "/account", icon: <FaBookReader />, current: `/${segment}` == "/account" ? true : false },
-    { name: 'Settings', href: "/settings", icon: <FiSettings />, current: `/${segment}` == "/settings" ? true : false }
+    { name: "Dashboard", href: "/dashboard", icon: <RiDashboardLine />, current: segment === "dashboard" || segment === null },
+    { name: "Course", href: "/course", icon: <CgNotes />, current: segment === "course" },
+    { name: 'Forum', href: "/forum", icon: <BiBookmarkMinus />, current: segment === "forum" },
+    { name: 'Calendar', href: "/calendar", icon: <BsCalendar />, current: segment === "calendar" },
+    { name: 'Account', href: "/account", icon: <FaBookReader />, current: segment === "account" },
+    { name: 'Settings', href: "/settings", icon: <FiSettings />, current: segment === "settings" }
   ]
-
-
 
   return (
     <div className="flex grow flex-col">
       <button className="absolute top-0 left-0 md:hidden lg:hidden text-[30px] m-4 pt-3 pr-4" onClick={toggleMenu}>
         {isMenuOpen ? <AiOutlineClose /> : <GiHamburgerMenu />}
       </button>
-      <nav className={`md:flex lg:flex grow flex-col gap-y-5 overflow-y-auto px-8 pb-4 ${isMenuOpen ? 'block' : 'hidden'}`}>
+      <nav className={`md:flex lg:flex grow flex-col gap-y-5 overflow-y-auto px-8 pb-4  w-[288px]  ${isMenuOpen ? 'block' : 'hidden'}`}>
         <div className='flex h-16 shrink-0 items-center'>
           <h1>Logo</h1>
         </div>

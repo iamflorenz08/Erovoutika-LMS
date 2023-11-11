@@ -11,14 +11,9 @@ type Props = {
 
 const CourseLayout = (props: Props) => {
     return (
-        <div className="flex mx-auto w-full">
-            <div>
-                <Sidebar />
-            </div>
-            <main className="w-full">
-                {props.children}
-            </main>
-        </div>
+        <section>
+            {props.children}
+        </section>
     )
 }
 

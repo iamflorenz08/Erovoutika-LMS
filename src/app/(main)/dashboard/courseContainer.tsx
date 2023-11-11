@@ -6,9 +6,9 @@ interface CourseContainerProps {
   buttonText: string;
 }
 
-const CourseContainer = ({ imageUrl, text, buttonText }: CourseContainerProps) => {
+export default function CourseContainer({ imageUrl, text, buttonText }: CourseContainerProps) {
   return (
-    <div className="flex w-full md:w-444 h-[168px] bg-white rounded-lg shadow-md">
+    <div className="flex h-[168px] bg-white rounded-lg shadow-md">
       <img src={imageUrl} alt="Image" className="w-[168px] sm:w-[200px] h-[168px] rounded-l-lg" />
       <div className="flex flex-col justify-between w-3/4 p-4">
         <div>
@@ -22,7 +22,5 @@ const CourseContainer = ({ imageUrl, text, buttonText }: CourseContainerProps) =
       </div>
     </div>
   );
-  
-};
 
-export default CourseContainer;
+};

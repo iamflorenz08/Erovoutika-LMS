@@ -1,3 +1,4 @@
+'use client'
 import SearchBar from "@/components/searchBar"
 import React, { useState } from 'react';
 import { IoIosNotificationsOutline } from '@react-icons/all-files/io/IoIosNotificationsOutline';
@@ -10,11 +11,11 @@ export default function NavBar() {
 
     const handleSearch = (value: string) => {
         setSearchText(value);
-
     };
+
     return (
-        <nav className="flex items-center justify-end gap-3">
-            <div className="flex-grow px-6 hidden sm:flex">
+        <nav className="flex items-center justify-end gap-3 px-[24px] py-[36px]">
+            <div className="flex-grow hidden sm:flex">
                 <SearchBar
                     placeholder="Search..."
                 />
@@ -34,7 +35,6 @@ export default function NavBar() {
                     name="John Doe"
                     role="Student"
                 />
-
             </div>
         </nav>
     )
