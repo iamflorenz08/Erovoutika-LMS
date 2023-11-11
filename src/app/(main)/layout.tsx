@@ -1,5 +1,5 @@
 import Sidebar from "@/components/Sidebar";
-import NavBar from "./dashboard/navBar";
+import NavBar from "@/components/navBar";
 
 interface IProps {
     children: React.ReactNode

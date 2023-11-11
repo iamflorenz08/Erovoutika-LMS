@@ -3,7 +3,7 @@ import SearchBar from "@/components/searchBar"
 import React, { useState } from 'react';
 import { IoIosNotificationsOutline } from '@react-icons/all-files/io/IoIosNotificationsOutline';
 import { IoSearch } from '@react-icons/all-files/io5/IoSearch';
-import ProfileDropDown from "./profileDropDown";
+import ProfileDropDown from "../app/(main)/dashboard/profileDropDown";
 
 
 export default function NavBar() {
