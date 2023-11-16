@@ -1,41 +1,51 @@
-'use client'
-import SearchBar from "@/components/searchBar"
-import React, { useState } from 'react';
-import { IoIosNotificationsOutline } from '@react-icons/all-files/io/IoIosNotificationsOutline';
-import { IoSearch } from '@react-icons/all-files/io5/IoSearch';
-import ProfileDropDown from "../app/(main)/dashboard/profileDropDown";
+'use client';
+import SearchBar from "@/components/searchBar";
+import React, { useState } from "react";
+import { IoIosNotificationsOutline } from "@react-icons/all-files/io/IoIosNotificationsOutline";
+import { IoSearch } from "react-icons/io5";
+import ProfileDropDown from "@/app/(main)/dashboard/profileDropDown";
+import { AiOutlineMessage } from "react-icons/ai";
 
 
 export default function NavBar() {
-    const [searchText, setSearchText] = useState('');
-
+    const [searchText, setSearchText] = useState("");
+  
     const handleSearch = (value: string) => {
-        setSearchText(value);
+      setSearchText(value);
     };
 
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  }
+  
     return (
-        <nav className="flex items-center justify-end gap-3 px-[24px] py-[36px]">
-            <div className="flex-grow hidden sm:flex">
-                <SearchBar
-                    placeholder="Search..."
-                />
-            </div>
+      <div className="relative top-0 inset-x-0 overflow-hidden">
+      <nav className="h-[60px] sticky top-0 right-0 z-40 flex lg:z-50 items-center justify-end gap-3 pr-3 shadow-sm">
 
-            <div className="p-2 sm:hidden flex justify-end text-[26px]">
-                <IoSearch
-                    onClick={handleSearch} />
-            </div>
-
-            <div className="p-1 text-[26px] text-black bg-white rounded-lg border">
-                <IoIosNotificationsOutline />
-            </div>
-
-            <div className="p-1">
-                <ProfileDropDown
-                    name="John Doe"
-                    role="Student"
-                />
-            </div>
-        </nav>
-    )
-}
+      <div className="md:flex-grow 2xl:max-lg:flex-grow px-6 hidden sm:flex">
+      <SearchBar placeholder="Search..."  />
+    </div>
+  
+        <div className="p-2 sm:hidden flex justify-end text-[20px]">
+          <IoSearch onClick={handleSearch} />
+        </div>
+  
+        <div className="p-1 text-[25px] text-black bg-white rounded-lg border border-slate-300">
+          <IoIosNotificationsOutline />
+        </div>
+  
+        <div className="p-1 text-[25px] text-black bg-white rounded-lg border border-slate-300">
+          <AiOutlineMessage />
+        </div>
+  
+        <div className="p-1">
+          <ProfileDropDown name="John Doe" role="Student" />
+        </div>
+      </nav>
+      </div>
+    );
+  }
+  
+  

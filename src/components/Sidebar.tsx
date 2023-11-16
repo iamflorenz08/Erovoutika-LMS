@@ -2,7 +2,6 @@
 import { RiDashboardLine } from '@react-icons/all-files/ri/RiDashboardLine';
 import { CgNotes } from '@react-icons/all-files/cg/Cgnotes';
 import { BiBookmarkMinus } from '@react-icons/all-files/bi/BiBookmarkMinus';
-import { FiInbox } from '@react-icons/all-files/fi/FiInbox';
 import { BsCalendar } from '@react-icons/all-files/bs/BsCalendar';
 import { FaBookReader } from '@react-icons/all-files/fa/FaBookReader';
 import { FiSettings } from '@react-icons/all-files/fi/FiSettings';
@@ -35,14 +34,15 @@ const Sidebar = () => {
   ]
 
   return (
-    <div className="flex grow flex-col">
-      <button className="absolute top-0 left-0 md:hidden lg:hidden text-[30px] m-4 pt-3 pr-4" onClick={toggleMenu}>
+    <div className="lg:sticky top-0 left-0 right-0 flex grow flex-col">
+      <button className="absolute top-0 left-0 md:hidden lg:hidden text-[30px] m-4 pt-0 pr-4" onClick={toggleMenu}>
         {isMenuOpen ? <AiOutlineClose /> : <GiHamburgerMenu />}
       </button>
       <nav className={`md:flex lg:flex grow flex-col gap-y-5 overflow-y-auto px-8 pb-4  w-[288px]  ${isMenuOpen ? 'block' : 'hidden'}`}>
-        <div className='flex h-16 shrink-0 items-center'>
-          <h1>Logo</h1>
-        </div>
+      <div className='flex h-16 shrink-0 items-center justify-center text-2xl font-bold text-primary'>
+        <h1>EroHub</h1>
+      </div>
+
         <ul role="list" className="flex flex-1 flex-col gap-y-4 p-4">
           <li>
             <ul role="list" className="-mx-2 space-y-6">

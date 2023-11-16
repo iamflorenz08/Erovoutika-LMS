@@ -1,5 +1,6 @@
+'use client';
 import React from 'react';
-import ForumLayout from './layout';
+import NavBar from '@/components/navBar';
 
 const Course = () => {
   return (
