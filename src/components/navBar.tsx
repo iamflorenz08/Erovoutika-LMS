@@ -5,6 +5,7 @@ import { IoIosNotificationsOutline } from "@react-icons/all-files/io/IoIosNotifi
 import { IoSearch } from "react-icons/io5";
 import ProfileDropDown from "@/app/(main)/dashboard/profileDropDown";
 import { AiOutlineMessage } from "react-icons/ai";
+import ChatBox from "./chatBox";
 
 
 export default function NavBar() {
@@ -18,6 +19,11 @@ export default function NavBar() {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  }
+  const [isChatboxOpen, setIsChatboxOpen] = useState(false);
+
+  const toggleChatBox = () => {
+    setIsChatboxOpen(!isChatboxOpen)
   }
   
     return (
@@ -37,8 +43,9 @@ export default function NavBar() {
         </div>
   
         <div className="p-1 text-[25px] text-black bg-white rounded-lg border border-slate-300">
-          <AiOutlineMessage />
-        </div>
+        <AiOutlineMessage onClick={toggleChatBox} />
+      </div>
+      {isChatboxOpen && <ChatBox onClose={toggleChatBox} />}
   
         <div className="p-1">
           <ProfileDropDown name="John Doe" role="Student" />
