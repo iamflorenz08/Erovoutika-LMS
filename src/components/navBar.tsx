@@ -8,44 +8,40 @@ import { AiOutlineMessage } from "react-icons/ai";
 
 
 export default function NavBar() {
-    const [searchText, setSearchText] = useState("");
-  
-    const handleSearch = (value: string) => {
-      setSearchText(value);
-    };
+  const [searchText, setSearchText] = useState("");
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const handleSearch = (value: string) => {
+    setSearchText(value);
+  };
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   }
-  
-    return (
-      <div className="relative top-0 inset-x-0 overflow-hidden">
-      <nav className="h-[60px] sticky top-0 right-0 z-40 flex lg:z-50 items-center justify-end gap-3 pr-3 shadow-sm">
 
-      <div className="md:flex-grow 2xl:max-lg:flex-grow px-6 hidden sm:flex">
-      <SearchBar placeholder="Search..."  />
-    </div>
-  
-        <div className="p-2 sm:hidden flex justify-end text-[20px]">
-          <IoSearch onClick={handleSearch} />
-        </div>
-  
-        <div className="p-1 text-[25px] text-black bg-white rounded-lg border border-slate-300">
-          <IoIosNotificationsOutline />
-        </div>
-  
-        <div className="p-1 text-[25px] text-black bg-white rounded-lg border border-slate-300">
-          <AiOutlineMessage />
-        </div>
-  
-        <div className="p-1">
-          <ProfileDropDown name="John Doe" role="Student" />
-        </div>
-      </nav>
+  return (
+    <nav className="z-40 flex lg:z-50 items-center gap-2 px-6 py-9 justify-end">
+      <div className="md:flex-grow 2xl:max-lg:flex-grow hidden sm:flex">
+        <SearchBar placeholder="Search..." />
       </div>
-    );
-  }
-  
-  
+
+      <div className="p-2 sm:hidden flex justify-end text-[20px]">
+        <IoSearch onClick={handleSearch} />
+      </div>
+
+      <div className="p-1 text-[25px] text-black bg-white rounded-lg border border-slate-300">
+        <IoIosNotificationsOutline />
+      </div>
+
+      <div className="p-1 text-[25px] text-black bg-white rounded-lg border border-slate-300">
+        <AiOutlineMessage />
+      </div>
+
+      <div className="p-1">
+        <ProfileDropDown name="John Doe" role="Student" />
+      </div>
+    </nav>
+  );
+}
+

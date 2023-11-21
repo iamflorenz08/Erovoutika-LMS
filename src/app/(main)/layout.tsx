@@ -1,4 +1,4 @@
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/sidebar";
 import NavBar from "@/components/navBar";
 
 interface IProps {

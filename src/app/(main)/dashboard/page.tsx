@@ -4,7 +4,7 @@ import ToDoListContainer from './toDoList';
 import UpComingTaskContainer from './upComingTask'
 const Dashboard = async () => {
   return (
-    <div className="flex flex-col px-[24px] py-[16px] h-full gap-5">
+    <div className="flex flex-col px-6 pb-4 h-full gap-5">
       <div className='flex flex-col xl:flex-row w-full gap-5'>
         <div className='w-full grid 2xl:grid-cols-2 gap-5 h-fit'>
           <CourseContainer

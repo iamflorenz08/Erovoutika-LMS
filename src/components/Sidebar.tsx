@@ -25,12 +25,30 @@ const Sidebar = () => {
   const segment = useSelectedLayoutSegment();
 
   const sidebarPages = [
-    { name: "Dashboard", href: "/dashboard", icon: <RiDashboardLine />, current: segment === "dashboard" || segment === null },
-    { name: "Course", href: "/course", icon: <CgNotes />, current: segment === "course" },
-    { name: 'Forum', href: "/forum", icon: <BiBookmarkMinus />, current: segment === "forum" },
-    { name: 'Calendar', href: "/calendar", icon: <BsCalendar />, current: segment === "calendar" },
-    { name: 'Account', href: "/account", icon: <FaBookReader />, current: segment === "account" },
-    { name: 'Settings', href: "/settings", icon: <FiSettings />, current: segment === "settings" }
+    {
+      name: "Dashboard",
+      href: "/dashboard",
+      icon: <RiDashboardLine />,
+      current: segment === "dashboard" || segment === null
+    },
+    {
+      name: "Course",
+      href: "/course",
+      icon: <CgNotes />,
+      current: segment === "course"
+    },
+    {
+      name: 'Calendar',
+      href: "/calendar",
+      icon: <BsCalendar />,
+      current: segment === "calendar"
+    },
+    {
+      name: 'Forum',
+      href: "/forum",
+      icon: <BiBookmarkMinus />,
+      current: segment === "forum"
+    }
   ]
 
   return (
@@ -39,9 +57,9 @@ const Sidebar = () => {
         {isMenuOpen ? <AiOutlineClose /> : <GiHamburgerMenu />}
       </button>
       <nav className={`md:flex lg:flex grow flex-col gap-y-5 overflow-y-auto px-8 pb-4  w-[288px]  ${isMenuOpen ? 'block' : 'hidden'}`}>
-      <div className='flex h-16 shrink-0 items-center justify-center text-2xl font-bold text-primary'>
-        <h1>EroHub</h1>
-      </div>
+        <div className='flex h-16 shrink-0 items-center justify-center text-2xl font-bold text-primary'>
+          <h1>EroHub</h1>
+        </div>
 
         <ul role="list" className="flex flex-1 flex-col gap-y-4 p-4">
           <li>

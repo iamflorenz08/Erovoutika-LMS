@@ -4,7 +4,7 @@ import Nodes from "@/images/nodes.png"
 import Logo from "@/images/logo.png";
 import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle'
 import { useRef, useState } from "react";
-import SignUpModal from "@/components/SignUpModal"
+import SignUpModal from "@/components/signUpModal"
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
