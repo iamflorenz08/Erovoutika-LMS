@@ -20,6 +20,7 @@ const config: Config = {
         'gray': '#7B7B7B',
         'semi-black': '#303030',
         'dirty-white': "#F9F9F9",
+        'reward': '#E9A23B'
       },
     },
 

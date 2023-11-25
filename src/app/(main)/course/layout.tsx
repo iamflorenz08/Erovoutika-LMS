@@ -1,18 +1,14 @@
 import { ReactNode } from "react";
-import Sidebar from '@/components/sidebar';
 
 interface CourseLayoutProps {
     children: ReactNode;
 }
 
-type Props = {
-    children: ReactNode
-}
 
-const CourseLayout = (props: Props) => {
+const CourseLayout = ({ children }: CourseLayoutProps) => {
     return (
         <section>
-            {props.children}
+            {children}
         </section>
     )
 }

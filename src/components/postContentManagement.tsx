@@ -1,5 +1,4 @@
 'use client'
-
 import { useEditor, EditorContent } from '@tiptap/react'
 import { useCallback } from 'react'
 import StarterKit from '@tiptap/starter-kit'
@@ -21,15 +20,15 @@ import Underline from '@tiptap/extension-underline'
 import Link from '@tiptap/extension-link'
 import OrderedList from '@tiptap/extension-ordered-list'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
-import { common, createLowlight, Options } from 'lowlight'
-
+import { common, createLowlight } from 'lowlight'
 
 interface IProps {
     placeholder?: string,
-    className?: string
+    className?: string,
+    onUpdate: (content: string) => void
 }
 
-const PostContentManagement = ({ placeholder, className }: IProps) => {
+const PostContentManagement = ({ placeholder, className, onUpdate }: IProps) => {
     const lowlight = createLowlight(common)
 
     const editor = useEditor({
@@ -41,23 +40,7 @@ const PostContentManagement = ({ placeholder, className }: IProps) => {
                 bulletList: false,
             }),
             Underline,
-            ListItem.extend({
-                addKeyboardShortcuts() {
-                    return {
-                        'Tab': () => {
-                            this.editor?.chain()
-                                .sinkListItem('listItem')
-                                .command(({ tr }) => {
-                                    tr.insertText('     ')
-                                    return true
-                                })
-                                .run()
-
-                            return true
-                        }
-                    }
-                }
-            }),
+            ListItem,
             Link.configure({
                 HTMLAttributes: {
                     class: 'text-blue-500 underline'
@@ -91,7 +74,9 @@ const PostContentManagement = ({ placeholder, className }: IProps) => {
 
         },
         content: '',
-
+        onUpdate: ({ editor }) => {
+            onUpdate(editor.getHTML())
+        }
     })
 
     const setLink = useCallback(

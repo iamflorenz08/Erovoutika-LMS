@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@react-icons/all-files": "^4.1.0",
+    "@react-icons/all-files": "https://github.com/react-icons/react-icons/releases/download/v4.12.0/react-icons-all-files-4.12.0.tgz",
     "@tiptap/extension-bullet-list": "^2.1.12",
     "@tiptap/extension-code-block-lowlight": "^2.1.12",
     "@tiptap/extension-link": "^2.1.12",
@@ -20,13 +20,14 @@
     "@tiptap/pm": "^2.1.12",
     "@tiptap/react": "^2.1.12",
     "@tiptap/starter-kit": "^2.1.12",
+    "@types/dompurify": "^3.0.5",
     "axios": "^1.6.1",
+    "dompurify": "^3.0.6",
     "lowlight": "^3.1.0",
     "next": "13.5.4",
     "next-auth": "^4.24.4",
     "react": "^18",
-    "react-dom": "^18",
-    "react-icons": "^4.11.0"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",

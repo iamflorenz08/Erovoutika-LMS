@@ -3,7 +3,7 @@ import { AiOutlineClose } from '@react-icons/all-files/ai/AiOutlineClose';
 import { BiMessageRoundedAdd } from '@react-icons/all-files/bi/BiMessageRoundedAdd';
 import { BiImageAlt } from '@react-icons/all-files/bi/BiImageAlt';
 import { IoSend } from '@react-icons/all-files/io5/IoSend';
-import { FaCirclePlus } from 'react-icons/fa6/';
+import { BsPlusCircleFill } from '@react-icons/all-files/bs/BsPlusCircleFill';
 
 const StartChatButton = () => (
   <button
@@ -103,9 +103,8 @@ const ChatBox = ({ onClose }: ChatBoxProps) => {
 
   return (
     <div
-      className={`fixed bottom-0 right-0 w-full md:w-[490px] lg:w-[600px] xl:w-[650px] ${
-        window.innerWidth < 768 ? "h-[440px]" : "h-[436px]"
-      } bg-white border border-slate-300 rounded-lg flex flex-row`}
+      className={`fixed bottom-0 right-6 w-full md:w-[490px] lg:w-[600px] xl:w-[650px] ${window.innerWidth < 768 ? "h-[440px]" : "h-[436px]"
+        } bg-white border border-slate-300 rounded-lg flex flex-row`}
     >
       <div className="flex-grow border-r border-slate-300">
         <div className="grid grid-cols-2 border-b p-4 border-slate-300 items-center">
@@ -135,7 +134,7 @@ const ChatBox = ({ onClose }: ChatBoxProps) => {
         />
 
         <div className="text-primary flex items-center m-4 lg:hidden md:hidden">
-          <FaCirclePlus size={45} onClick={toggleNewChat} />
+          <BsPlusCircleFill size={45} onClick={toggleNewChat} />
         </div>
       </div>
 
