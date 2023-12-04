@@ -31,6 +31,7 @@ export default function Rewards({ setRewardValue, value }: IProps) {
             <div className="flex gap-2">
                 {rewards.map((reward, index) => (
                     <button
+                        type="button"
                         key={index}
                         onClick={() => setRewardValue(reward.value)}
                         className={`w-12 h-10 text-center rounded-lg ${reward.active ? 'bg-primary-light text-white' : 'border'} border-gray border-opacity-20 text-gray duration-300`}>

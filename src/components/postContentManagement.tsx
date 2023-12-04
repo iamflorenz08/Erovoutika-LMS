@@ -25,7 +25,7 @@ import { common, createLowlight } from 'lowlight'
 interface IProps {
     placeholder?: string,
     className?: string,
-    onUpdate: (content: string) => void
+    onUpdate?: (content: string) => void | undefined | null
 }
 
 const PostContentManagement = ({ placeholder, className, onUpdate }: IProps) => {
@@ -66,16 +66,14 @@ const PostContentManagement = ({ placeholder, className, onUpdate }: IProps) => 
                 }
             })
         ],
-
         editorProps: {
             attributes: {
                 class: 'focus:outline-none p-5 h-full',
             },
-
         },
         content: '',
         onUpdate: ({ editor }) => {
-            onUpdate(editor.getHTML())
+            onUpdate && onUpdate(editor.getHTML())
         }
     })
 
@@ -100,49 +98,60 @@ const PostContentManagement = ({ placeholder, className, onUpdate }: IProps) => 
     )
 
     return (
-        <div className='bg-white border-2 border-gray border-opacity-20 rounded-md mt-2.5'>
+        <div className='bg-white border-2 border-gray border-opacity-20 rounded-md'>
             <div className='bg-gray bg-opacity-20 w-full flex flex-wrap text-2xl items-center gap-5 p-1 text-gray' >
                 <div className='flex gap-1'>
                     <button
+                        type="button"
                         className={`${editor?.isActive('italic') && 'text-black'} p-2`}
                         onClick={() => editor?.commands.toggleItalic()}><AiOutlineItalic /></button>
                     <button
+                        type="button"
                         className={`${editor?.isActive('bold') && 'text-black'} p-2`}
                         onClick={() => editor?.commands.toggleBold()}><AiOutlineBold /></button>
                     <button
+                        type="button"
                         className={`${editor?.isActive('underline') && 'text-black'} p-2`}
                         onClick={() => editor?.commands.toggleUnderline()}><AiOutlineUnderline /></button>
                     <button
+                        type="button"
                         className={`${editor?.isActive('strike') && 'text-black'} p-2`}
                         onClick={() => editor?.commands.toggleStrike()}><AiOutlineStrikethrough /></button>
                     <button
+                        type="button"
                         onClick={setLink}><AiOutlineLink /></button>
                 </div>
                 <span>|</span>
                 <div className='flex gap-1'>
                     <button
+                        type="button"
                         className={`${editor?.isActive({ textAlign: 'left' }) && 'text-black'} p-2`}
                         onClick={() => editor?.commands.setTextAlign('left')}><AiOutlineAlignLeft /></button>
                     <button
+                        type="button"
                         className={`${editor?.isActive({ textAlign: 'center' }) && 'text-black'} p-2`}
                         onClick={() => editor?.commands.setTextAlign('center')}><AiOutlineAlignCenter /></button>
                     <button
+                        type="button"
                         className={`${editor?.isActive({ textAlign: 'right' }) && 'text-black'} p-2`}
                         onClick={() => editor?.commands.setTextAlign('right')}><AiOutlineAlignRight /></button>
                     <button
+                        type="button"
                         className={`${editor?.isActive('bulletList') && 'text-black'} p-2`}
                         onClick={() => editor?.commands.toggleBulletList()}><AiOutlineUnorderedList /></button>
                     <button
+                        type="button"
                         className={`${editor?.isActive('orderedList') && 'text-black'} p-2`}
                         onClick={() => editor?.commands.toggleOrderedList()}><AiOutlineOrderedList /></button>
                 </div>
                 <span>|</span>
                 <div className='flex gap-3'>
-                    <button onClick={() => editor?.commands.toggleCodeBlock()}><BsCode /></button>
+                    <button
+                        type="button" onClick={() => editor?.commands.toggleCodeBlock()}><BsCode /></button>
                 </div>
             </div>
             <EditorContent
-                className='h-[232px] overflow-auto'
+                className={`h-[232px] overflow-auto ${className}`}
                 editor={editor} />
         </div>
     )

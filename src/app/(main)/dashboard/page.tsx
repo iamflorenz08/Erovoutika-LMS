@@ -1,7 +1,9 @@
+import { getServerSession } from 'next-auth';
 import CourseContainer from './courseContainer';
 import MyCourses from './myCourses';
 import ToDoListContainer from './toDoList';
 import UpComingTaskContainer from './upComingTask'
+
 const Dashboard = async () => {
   return (
     <div className="flex flex-col px-6 pb-4 h-full gap-5">

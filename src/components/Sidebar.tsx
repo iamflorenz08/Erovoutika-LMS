@@ -65,7 +65,7 @@ const Sidebar = () => {
           <li>
             <ul role="list" className="-mx-2 space-y-6">
               {sidebarPages.map((option, index) => (
-                <li key={option.name}>
+                <li key={index}>
                   <Link
                     href={option.href}
                     className={classNames(

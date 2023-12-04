@@ -6,9 +6,11 @@ import { IoSearch } from "@react-icons/all-files/io5/IoSearch";
 import ProfileDropDown from "@/app/(main)/dashboard/profileDropDown";
 import { AiOutlineMessage } from "@react-icons/all-files/ai/AiOutlineMessage";
 import ChatBox from "./chatBox";
+import { signIn, useSession } from "next-auth/react";
 
 
 export default function NavBar() {
+  const { data, status } = useSession()
   const [searchText, setSearchText] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isChatboxOpen, setIsChatboxOpen] = useState(false);
@@ -35,19 +37,35 @@ export default function NavBar() {
         <IoSearch onClick={handleSearch} />
       </div>
 
-      <div className="p-1 text-[25px] text-black bg-white rounded-lg border border-slate-300">
-        <IoIosNotificationsOutline />
-      </div>
+      {status === 'loading' ? 'Loading' : status === 'authenticated' ? (
+        <>
+          <div className="p-1 text-[25px] text-black bg-white rounded-lg border border-slate-300">
+            <IoIosNotificationsOutline />
+          </div>
 
-      <div className="p-1 text-[25px] text-black bg-white rounded-lg border border-slate-300">
-        <AiOutlineMessage onClick={toggleChatBox} />
-      </div>
+          <div className="p-1 text-[25px] text-black bg-white rounded-lg border border-slate-300">
+            <AiOutlineMessage onClick={toggleChatBox} />
+          </div>
 
-      {isChatboxOpen && <ChatBox onClose={toggleChatBox} />}
+          {isChatboxOpen && <ChatBox onClose={toggleChatBox} />}
 
-      <div className="p-1">
-        <ProfileDropDown name="John Doe" role="Student" />
-      </div>
+          <div className="p-1">
+            <ProfileDropDown
+              data={data}
+            />
+          </div>
+        </>
+      ) : (
+        <div className="flex gap-4">
+          <button
+            onClick={() => signIn()}
+            className="text-lg px-4 py-1 border-2 border-primary text-primary rounded-full hover:bg-primary hover:text-white bg-opacity-80 duration-300">
+            Log in
+          </button>
+          <button className="text-lg px-4 py-1 bg-primary text-white rounded-full hover:bg-opacity-80 duration-300">Sign up</button>
+        </div>
+      )}
+
     </nav>
   );
 }

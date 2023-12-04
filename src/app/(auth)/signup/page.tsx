@@ -64,8 +64,6 @@ export default function SignUpPage({ searchParams: { email } }: { searchParams: 
 
                 </div>
 
-
-
                 {currentStep == 0 && (
                     <StepOne
                         userDetails={userDetails}

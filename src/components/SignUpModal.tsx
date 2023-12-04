@@ -1,10 +1,7 @@
-import { experimental_useFormStatus as useFormStatus } from "react-dom"
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import { experimental_useFormState as useFormState } from "react-dom";
+import { useFormStatus, useFormState } from "react-dom"
 import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle'
 import { FaTimes } from '@react-icons/all-files/fa/FaTimes';
-import { createUserEmail } from "@/app/signin/actions";
+import { createUserEmail } from "@/app/(auth)/signin/actions";
 
 const initialState = {
   message: null,
@@ -12,7 +9,6 @@ const initialState = {
 
 const SubmitEmailButton = () => {
   const { pending } = useFormStatus()
-
   return (
     <button
       type="submit"

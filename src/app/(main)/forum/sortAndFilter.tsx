@@ -63,7 +63,7 @@ export default function SortAndFilter() {
     )
 
     return (
-        <div className="hidden bg-white w-full max-w-[272px] h-fit p-4 xl:flex flex-col gap-4 rounded-lg sticky top-0 shadow-md">
+        <div className="hidden bg-white w-full max-w-[272px] h-fit p-4 xl:flex flex-col gap-4 rounded-lg sticky top-0  shadow-md">
             {/* Sort */}
             <h1 className="font-medium text-xl">Sort by</h1>
             <div className="flex flex-col gap-2">

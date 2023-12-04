@@ -14,7 +14,7 @@ export default function layout({ children }: IProps) {
 
             <main className="w-full bg-[#F4F7FE] flex flex-col">
                 <NavBar />
-                <div className="h-full overflow-auto">
+                <div className="h-full overflow-auto mt-2">
                     {children}
                 </div>
             </main>

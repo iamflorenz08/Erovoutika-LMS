@@ -4,6 +4,7 @@ import { IUserDetails } from "./page";
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import submitForm from "./submitForm";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 interface IStep {
     userDetails: IUserDetails,
@@ -25,7 +26,7 @@ export default function StepThree({ userDetails, setUserDetails, setCurrentStep 
         confirmPassword: '',
     })
 
-    
+
     const validateAndSubmit = async () => {
         let isValid = true
         //Validate Password
@@ -34,7 +35,7 @@ export default function StepThree({ userDetails, setUserDetails, setCurrentStep 
         }
         else {
             setError(value => ({
-                ...value, password: userDetails.password ? 'Password too short.' : 'Input password.'
+                ...value, password: userDetails.password ? 'Use 6 characters or more for your password.' : 'Input password.'
             }))
 
             isValid = false
@@ -46,14 +47,18 @@ export default function StepThree({ userDetails, setUserDetails, setCurrentStep 
         }
         else {
             setError(value => ({
-                ...value, confirmPassword: userDetails.confirmPassword ? 'Password mismatch.' : 'Input password.'
+                ...value, confirmPassword: userDetails.confirmPassword ? 'Those passwords didn’t match. Try again.' : 'Input password.'
             }))
 
             isValid = false
         }
-        
+
         if (isValid && await submit(userDetails)) {
-            router.push('/dashboard')
+            signIn('credentials', {
+                email: userDetails.email,
+                password: userDetails.password,
+                callbackUrl: '/dashboard'
+            })
         }
     }
 
@@ -99,8 +104,6 @@ export default function StepThree({ userDetails, setUserDetails, setCurrentStep 
                             Processing...
                         </div>
                     ) : 'Done'}
-
-
                 </button>
 
             </div>
