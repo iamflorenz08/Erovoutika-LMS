@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const getPosts = async (profileId: string | undefined) => {
-    const res = await fetch(`${process.env.API_URI}/api/v1/posts/user/${profileId}`)
+    const res = await fetch(`${process.env.API_URI}/api/v1/posts/user/${profileId}`, { cache: 'no-cache' })
     return res.json()
 }
 export default async function PostsSection({ profileId }: IProps) {

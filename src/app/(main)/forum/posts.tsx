@@ -7,29 +7,52 @@ import { PiArrowsDownUp } from '@react-icons/all-files/pi/PiArrowsDownUp'
 import TagBox from "@/components/tagBox";
 import Link from "next/link";
 import { IPost } from "@/types/postTypes";
+import { useSession } from "next-auth/react";
+import { useCallback } from "react";
+import timeAgo from "@/utils/timeAgo";
+import AvailableRewards from "@/components/availableRewards";
+import { useRouter } from "next/navigation";
 
 interface IProps {
     posts: Array<IPost>
 }
 
 export default function Posts({ posts }: IProps) {
+    const router = useRouter()
+    const { data, status } = useSession()
+    
+
     return (
         <div className="flex flex-col gap-2">
             {posts.map((post, index) => (
-                <Link key={index} href={'/forum/' + post._id} className="bg-white w-full flex flex-col gap-4 p-4 rounded-lg shadow-md">
+                <div
+                    key={index}
+                    className="bg-white w-full flex flex-col gap-4 p-4 rounded-lg shadow-md relative">
+                    <Link href={'/forum/' + post._id} className="absolute inset-0" />
+
                     {/* POST HEADER */}
                     <div className="flex justify-between items-center">
-                        <div className="flex gap-4">
-                            <Image className="w-12 h-12 object-cover" src={'/sample_user_icon.png'} alt="user_icon" width={48} height={48} />
-                            <div>
-                                <h1 className="font-medium">{post.author?.fullName.first} {post.author?.fullName.last}</h1>
-                                <span className="text-gray text-sm">5 min ago</span>
+                        <div className="flex gap-4 z-10">
+                            <Link
+                                href={'/profile/' + post.author?._id}
+                            >
+                                <Image className="w-12 h-12 object-cover" src={'/sample_user_icon.png'} alt="user_icon" width={48} height={48} />
+                            </Link>
+                            <div className="flex flex-col">
+                                <Link
+                                    className="font-medium hover:text-primary-light duration-200"
+                                    href={'/profile/' + post.author?._id} >
+                                    {post.author?.fullName.first} {post.author?.fullName.last}
+                                </Link>
+                                <span className="text-gray text-sm">{timeAgo(new Date(post.createdAt))}</span>
                             </div>
                         </div>
 
                         <div className="flex gap-4 items-center">
                             {post.rewards > 0 && (
-                                <span className="bg-reward text-white px-2.5 py-1.5 rounded-[20px]">Available Reward</span>
+                                <AvailableRewards
+                                    rewards={post.rewards}
+                                />
                             )}
                             <button
                                 onClick={(e) => {
@@ -44,7 +67,7 @@ export default function Posts({ posts }: IProps) {
                     <h1 className="text-xl font-bold">{post.title}</h1>
 
                     {/* BODY */}
-                    <div className="line-clamp-3" dangerouslySetInnerHTML={{ __html: post.contentMessage }}>
+                    <div className="line-clamp-3 w-96" dangerouslySetInnerHTML={{ __html: post.contentMessage }}>
 
                     </div>
 
@@ -61,13 +84,12 @@ export default function Posts({ posts }: IProps) {
                         </div>
 
                         <div className="flex gap-4 text-gray">
-                            <span className="flex gap-1 items-center"><IoEyeOutline size={24} />125</span>
+                            <span className="flex gap-1 items-center"><IoEyeOutline size={24} />{post.viewCount}</span>
                             <span className="flex gap-1 items-center"><FiMessageSquare size={24} />{post.commentCount}</span>
-                            <span className="flex gap-1 items-center"><PiArrowsDownUp size={24} />155</span>
+                            <span className="flex gap-1 items-center"><PiArrowsDownUp size={24} />{post.updownVoteCount}</span>
                         </div>
                     </div>
-
-                </Link>
+                </div>
             ))}
         </div  >
     )

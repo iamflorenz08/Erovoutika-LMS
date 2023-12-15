@@ -1,11 +1,10 @@
 import ParentComment from './parentComment'
-import { useFormState, useFormStatus } from 'react-dom'
+import { useFormState } from 'react-dom'
 import { IStatus } from '@/types/statusTypes'
 import { addComment } from './action'
 import { useParams } from 'next/navigation'
 import useSWR from 'swr'
 import { IComment } from '@/types/commentTypes'
-import { useSession } from 'next-auth/react'
 import ReplyInputBox from './replyInputBox'
 import { useEffect } from 'react'
 
@@ -25,7 +24,6 @@ const initialState: ICommentStatus = {
 }
 
 const fetcher = (url: string) => fetch(url).then(res => res.json())
-
 export default function CommentSection({ showReply, setShowReply }: IProps) {
     const { id } = useParams()
     const [status, formAction] = useFormState(addComment, initialState)

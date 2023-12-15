@@ -58,7 +58,7 @@ export default function Categories() {
     ]
 
     return (
-        <div className="bg-white p-4 flex gap-2 rounded-lg sticky top-0 shadow-md">
+        <div className="bg-white p-4 flex gap-2 rounded-lg sticky top-0 shadow-md z-40">
             {topicCategories.map((category, index) => (
                 <button
                     onClick={() => router.push(pathname + '?' + createQueryString('category', category.query))}

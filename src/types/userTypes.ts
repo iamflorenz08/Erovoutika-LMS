@@ -16,12 +16,11 @@ export interface IBadge {
     imageURL: string
 }
 
-
 export interface IUser {
     _id: string,
     fullName: IFullname
     birthDate: IBirthDate,
     gender: string,
-    currentBadges: Array<IBadge | null>,
-    availableBadges: Array<IBadge | null>
+    currentBadges: Array<IBadge>,
+    availableBadges: Array<IBadge>
 }

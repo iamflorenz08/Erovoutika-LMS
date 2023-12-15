@@ -1,24 +1,28 @@
 import Image from "next/image"
 import { HiPencil } from '@react-icons/all-files/hi/HiPencil'
 import { IUser } from "@/types/userTypes"
-import BadgesModal from "./badgesModal"
+import { PiChatCircleDotsFill } from '@react-icons/all-files/pi/PiChatCircleDotsFill'
+import Badge from "./badge"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 
 interface IProps {
     profileId: string,
 }
 
-const getUser = async (profileId: string | undefined) => {
-    const res = await fetch(`${process.env.API_URI}/api/v1/users/${profileId}`)
+const getUser = async (profileId: string | undefined, token: string | undefined) => {
+    const res = await fetch(`${process.env.API_URI}/api/v1/users/${profileId}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + token
+        }
+    })
     return res.json()
 }
 
 export default async function UserProfile({ profileId }: IProps) {
-    const user: IUser = await getUser(profileId)
-    const toFill = 3 - user.currentBadges.length
-    for (let i = 0; i < toFill; i++) {
-        user.currentBadges.push(null)
-    }
-    
+    const session = await getServerSession(authOptions)
+    const user: IUser = await getUser(profileId, session?.user.tokens.accessToken)
     return (
         <div className="flex flex-col xl:flex-row gap-4 items-center bg-white rounded-lg shadow-md p-4">
             <div className="flex flex-col lg:flex-row gap-4 xl:gap-[120px] lg:justify-between xl:justify-start items-center w-full">
@@ -40,17 +44,28 @@ export default async function UserProfile({ profileId }: IProps) {
                 </div>
 
                 {/*BADGES AND BADGES MODAL */}
-                <BadgesModal
-                    currentBadges={user.currentBadges}
-                    availableBadges={user.availableBadges}
-                />
+                <div className="flex justify-center gap-4 text-black">
+                    {[0, 1, 2].map((value, index) => (
+                        <Badge
+                            key={index}
+                            index={index}
+                            badge={user.currentBadges[index]}
+                            availableBadges={user.availableBadges} />
+                    ))}
+                </div>
 
             </div>
 
             <div className="flex w-full justify-center xl:w-max lg:min-w-max items-end lg:justify-end xl:min-h-[120px]">
-                <button className="bg-gray bg-opacity-40 px-4 py-2 flex gap-2 items-center font-medium rounded-lg">
-                    <HiPencil size={24} />Edit Profile
-                </button>
+                {session?.user._id === profileId ? (
+                    <button className="bg-gray bg-opacity-40 px-4 py-2 flex gap-2 items-center font-medium rounded-lg">
+                        <HiPencil size={24} />Edit Profile
+                    </button>
+                ) : (
+                    <button className="bg-gray bg-opacity-40 px-4 py-2 flex gap-2 items-center font-medium rounded-lg">
+                        <PiChatCircleDotsFill size={24} />Message
+                    </button>
+                )}
             </div>
 
 

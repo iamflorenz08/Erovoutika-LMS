@@ -35,7 +35,7 @@ export default function StepThree({ userDetails, setUserDetails, setCurrentStep 
         }
         else {
             setError(value => ({
-                ...value, password: userDetails.password ? 'Use 6 characters or more for your password.' : 'Input password.'
+                ...value, password: userDetails.password ? 'Use 6 characters or more for your password.' : 'Enter a password.'
             }))
 
             isValid = false
@@ -47,7 +47,7 @@ export default function StepThree({ userDetails, setUserDetails, setCurrentStep 
         }
         else {
             setError(value => ({
-                ...value, confirmPassword: userDetails.confirmPassword ? 'Those passwords didn’t match. Try again.' : 'Input password.'
+                ...value, confirmPassword: userDetails.confirmPassword ? 'Those passwords didn’t match. Try again.' : 'Confirm your password.'
             }))
 
             isValid = false

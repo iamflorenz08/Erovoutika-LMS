@@ -27,7 +27,6 @@ export default function ReplyInputBox({ status, onSuccess, onCancel: cancel }: I
         signIn()
         return
     }
-
     return (
         <>
             <PostContentManagement

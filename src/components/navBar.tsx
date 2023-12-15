@@ -1,12 +1,13 @@
 'use client';
 import SearchBar from "@/components/searchBar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosNotificationsOutline } from "@react-icons/all-files/io/IoIosNotificationsOutline";
 import { IoSearch } from "@react-icons/all-files/io5/IoSearch";
 import ProfileDropDown from "@/app/(main)/dashboard/profileDropDown";
 import { AiOutlineMessage } from "@react-icons/all-files/ai/AiOutlineMessage";
-import ChatBox from "./chatBox";
+import ChatBox from "./chat/chatBox";
 import { signIn, useSession } from "next-auth/react";
+import SocketIO from "@/utils/socketIo";
 
 
 export default function NavBar() {
@@ -14,6 +15,18 @@ export default function NavBar() {
   const [searchText, setSearchText] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isChatboxOpen, setIsChatboxOpen] = useState(false);
+
+  useEffect(() => {
+    if (status === 'loading' || status === 'unauthenticated') return
+    SocketIO.connect()
+    SocketIO.on('connect', () => {
+      SocketIO.emit('userConnects', { userId: data?.user._id, socketId: SocketIO.id })
+    })
+    return () => {
+      SocketIO.disconnect()
+    }
+  }, [status])
+
 
   const handleSearch = (value: string) => {
     setSearchText(value);

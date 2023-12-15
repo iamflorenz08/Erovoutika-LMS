@@ -67,7 +67,7 @@ export default function StepTwo({ userDetails, setUserDetails, setCurrentStep }:
             setError(value => ({ ...value, gender: '' }))
         }
         else {
-            setError(value => ({ ...value, gender: 'Select gender' }))
+            setError(value => ({ ...value, gender: 'Please select your gender.' }))
             isValid = false
         }
 

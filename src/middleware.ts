@@ -6,6 +6,6 @@ export const config = {
         "/dashboard/:path*",
         "/course/:path*",
         "/calendar/:path*",
-        // "/forum/:path*"
+        "/profile/:path*",
     ]
 }

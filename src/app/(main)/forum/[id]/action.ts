@@ -40,7 +40,6 @@ export const addComment = async (prevState: any, formData: FormData) => {
         })
         const data = await res.json()
         if (!res.ok) throw new Error(data.message)
-        console.log(data)
         result.data = data
         result.success = true
     } catch (e) {
@@ -60,4 +59,67 @@ export const addComment = async (prevState: any, formData: FormData) => {
     }
 
     return result
+}
+
+export const addVote = async (postId: string, voteType: string | undefined) => {
+    const session = await getServerSession(authOptions)
+    try {
+        const res = await fetch(`${process.env.API_URI}/api/v1/posts/vote`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': 'Bearer ' + session?.user.tokens.accessToken
+            },
+            body: JSON.stringify({
+                userId: session?.user._id,
+                postId,
+                type: voteType
+            })
+        })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.message)
+        revalidatePath('/forum')
+    } catch (e: any) {
+        console.log(e)
+    }
+}
+
+export const saveDeleteThread = async (save: boolean, postId: string) => {
+    const session = await getServerSession(authOptions)
+    try {
+        if (save) {
+            const res = await fetch(`${process.env.API_URI}/api/v1/save/thread`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': 'Bearer ' + session?.user.tokens.accessToken
+                },
+                body: JSON.stringify({
+                    userId: session?.user._id,
+                    postId
+                })
+            })
+            const data = await res.json()
+            if (!res.ok) throw new Error(data.message)
+        }
+        else {
+            const res = await fetch(`${process.env.API_URI}/api/v1/save/thread`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': 'Bearer ' + session?.user.tokens.accessToken
+                },
+                body: JSON.stringify({
+                    userId: session?.user._id,
+                    postId
+                })
+            })
+            const data = await res.json()
+            if (!res.ok) throw new Error(data.message)
+        }
+
+        revalidatePath('/forum')
+    } catch (e) {
+        console.log(e)
+    }
 }

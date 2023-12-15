@@ -1,10 +1,29 @@
 import { IUser } from "@/types/userTypes"
 import Image from "next/image"
+import SaveThread from "./saveThread"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { any } from "zod"
+import { ISaveThread } from "@/types/saveTypes"
 
 interface IProps {
-    author?: IUser
+    author?: IUser,
+    postId: string | any
 }
-export default function ThreadStartInfo({ author }: IProps) {
+
+const getSavedThread = async (accessToken: string | any, postId: string | any) => {
+    if (!accessToken) return null
+    const res = await fetch(`${process.env.API_URI}/api/v1/save/thread/${postId}`, {
+        headers: {
+            'authorization': 'Bearer ' + accessToken
+        }
+    })
+    return res.json()
+}
+
+export default async function ThreadStartInfo({ author, postId }: IProps) {
+    const session = await getServerSession(authOptions)
+    const savedThread: ISaveThread = await getSavedThread(session?.user.tokens.accessToken, postId)
     return (
         <div className="max-w-[272px] w-full bg-white shadow-md p-4 rounded-lg h-fit sticky top-0">
             <div className="flex flex-col gap-2 items-center">
@@ -19,10 +38,16 @@ export default function ThreadStartInfo({ author }: IProps) {
 
             <div className="mt-2 flex flex-col gap-2">
                 <h1 className="font-medium">Badges</h1>
-                <div className="grid grid-cols-3 text-center my-4">
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
+                <div className="flex gap-5 justify-center text-center my-4 ">
+                    {author?.currentBadges.map((badge, index) => (
+                        <Image
+                            key={index}
+                            className="h-12 w-12 object-center"
+                            src={badge.imageURL}
+                            alt={badge.name}
+                            height={48}
+                            width={48} />
+                    ))}
                 </div>
 
                 <div className="flex font-medium">
@@ -37,7 +62,9 @@ export default function ThreadStartInfo({ author }: IProps) {
                 </div>
             </div>
 
-            <button className="bg-primary text-white w-full py-2 rounded-[20px] font-semibold mt-4">Watch thread</button>
+            <SaveThread
+                saveState={savedThread ? true : false}
+            />
         </div>
     )
 }

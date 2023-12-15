@@ -27,7 +27,7 @@ export default function StepOne({ userDetails, setUserDetails, setCurrentStep }:
             setError(value => ({ ...value, firstName: '' }))
         }
         else {
-            setError(value => ({ ...value, firstName: 'Input your first name.' }))
+            setError(value => ({ ...value, firstName: 'Enter first name.' }))
             isValid = false
         }
 
@@ -35,7 +35,7 @@ export default function StepOne({ userDetails, setUserDetails, setCurrentStep }:
             setError(value => ({ ...value, lastName: '' }))
         }
         else {
-            setError(value => ({ ...value, lastName: 'Input your last name.' }))
+            setError(value => ({ ...value, lastName: 'Enter last name.' }))
             isValid = false
         }
 

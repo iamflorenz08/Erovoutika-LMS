@@ -23,8 +23,10 @@ const config: Config = {
         'reward': '#E9A23B',
         'success': '#63C757',
       },
+      boxShadow: {
+        'tooltip': '0 0 20px rgba(0, 0, 0, 0.25)'
+      }
     },
-
   },
   plugins: [
     require('@tailwindcss/typography'),

@@ -19,7 +19,6 @@ const getPosts = async (accessToken: string | undefined) => {
 export default async function Feed() {
     const session = await getServerSession(authOptions)
     const posts: IPost[] = await getPosts(session?.user.tokens.accessToken)
-
     return (
         <>
             <div className="w-full flex flex-col gap-4">
