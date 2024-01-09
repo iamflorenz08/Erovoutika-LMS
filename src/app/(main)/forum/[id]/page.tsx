@@ -34,6 +34,7 @@ const addView = async (postId: string, userId: string, accessToken: string) => {
 export default async function page({ params }: IProps) {
     const session = await getServerSession(authOptions)
     const post: IPost = await getPost(session?.user.tokens.accessToken, params.id, session?.user._id)
+
     if (session) {
         await addView(params.id, session.user._id, session.user.tokens.accessToken)
     }
@@ -52,7 +53,9 @@ export default async function page({ params }: IProps) {
             />
 
             {/* Related Threads or Forums */}
-            <RelatedThreads />
+            <RelatedThreads
+                postId={params.id}
+            />
         </section>
     )
 }

@@ -6,7 +6,7 @@ interface IProps {
 
 export default function AvailableRewards({ rewards }: IProps) {
     return (
-        <div className='relative group'>
+        <div className='relative group z-10'>
             <div className='absolute -translate-x-36 top-10 min-w-[415px] text-center bg-white p-4 z-50 shadow-md rounded-lg hidden group-hover:block duration-300'>
                 <h1 className='text-primary text-xl font-bold'>+{rewards} Points</h1>
                 <h2><span className='font-semibold'>Reward available</span> for the <span className='font-semibold'>accepted answer</span> to this question.</h2>

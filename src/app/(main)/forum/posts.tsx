@@ -8,27 +8,24 @@ import TagBox from "@/components/tagBox";
 import Link from "next/link";
 import { IPost } from "@/types/postTypes";
 import { useSession } from "next-auth/react";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import timeAgo from "@/utils/timeAgo";
 import AvailableRewards from "@/components/availableRewards";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import PostContent from "@/components/postContent";
 
 interface IProps {
     posts: Array<IPost>
 }
 
 export default function Posts({ posts }: IProps) {
-    const router = useRouter()
-    const { data, status } = useSession()
-    
-
     return (
         <div className="flex flex-col gap-2">
             {posts.map((post, index) => (
                 <div
                     key={index}
                     className="bg-white w-full flex flex-col gap-4 p-4 rounded-lg shadow-md relative">
-                    <Link href={'/forum/' + post._id} className="absolute inset-0" />
+                    <Link href={'/forum/' + post._id} className="absolute inset-0 z-10" />
 
                     {/* POST HEADER */}
                     <div className="flex justify-between items-center">
@@ -59,7 +56,7 @@ export default function Posts({ posts }: IProps) {
                                     e.preventDefault()
                                     e.stopPropagation()
                                 }}
-                                className="text-gray text-3xl"><BiDotsVerticalRounded /></button>
+                                className="text-gray text-3xl z-10"><BiDotsVerticalRounded /></button>
                         </div>
                     </div>
 
@@ -67,20 +64,24 @@ export default function Posts({ posts }: IProps) {
                     <h1 className="text-xl font-bold">{post.title}</h1>
 
                     {/* BODY */}
-                    <div className="line-clamp-3 w-96" dangerouslySetInnerHTML={{ __html: post.contentMessage }}>
+                    {/* <div className="line-clamp-3 w-96" dangerouslySetInnerHTML={{ __html: post.contentMessage }}>
+                    
+                    </div> */}
+                    {/* <PostContent
+                        content={post.contentMessage}
+                        className="h-20 truncate"
+                    /> */}
 
-                    </div>
 
                     {/* POST FOOTER */}
                     <div className="flex flex-wrap gap-4 justify-between items-center">
-                        <div className="flex gap-2.5">
+                        <div className="flex flex-wrap gap-2.5">
                             {post.tags.map((tag, index) => (
                                 <TagBox
                                     key={index}
                                     label={tag}
                                 />
                             ))}
-
                         </div>
 
                         <div className="flex gap-4 text-gray">

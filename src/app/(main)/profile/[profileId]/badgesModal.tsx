@@ -23,7 +23,7 @@ export default function BadgesModal({ isShow, onClose: close, availableBadges, s
                 await changeBadge(badge, index)
             }}
             className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex justify-center items-center '>
-            <div className='bg-white p-4 flex flex-col gap-4 rounded-lg'>
+            <div className='bg-white p-4 flex flex-col gap-4 rounded-lg text-black'>
                 <div className='flex justify-between items-center'>
                     <h1 className='font-medium text-xl'>Select a badge</h1>
                     <button

@@ -3,6 +3,7 @@ import { IoMdTime } from '@react-icons/all-files/io/IoMdTime'
 import { IoMdTrendingUp } from '@react-icons/all-files/io/IoMdTrendingUp'
 import { RiFireLine } from '@react-icons/all-files/ri/RiFireLine'
 import { FiCheckCircle } from '@react-icons/all-files/fi/FiCheckCircle'
+import { GoThumbsup } from '@react-icons/all-files/go/GoThumbsup'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
 
@@ -54,11 +55,17 @@ export default function Categories() {
             query: 'closed',
             icon: < FiCheckCircle />,
             active: searchParam === 'closed'
+        },
+        {
+            label: 'Suggested',
+            query: 'suggested',
+            icon: < GoThumbsup />,
+            active: searchParam === 'suggested'
         }
     ]
 
     return (
-        <div className="bg-white p-4 flex gap-2 rounded-lg sticky top-0 shadow-md z-40">
+        <div className="bg-white p-4 flex gap-2 rounded-lg sticky top-0 shadow-md z-40 flex-wrap">
             {topicCategories.map((category, index) => (
                 <button
                     onClick={() => router.push(pathname + '?' + createQueryString('category', category.query))}

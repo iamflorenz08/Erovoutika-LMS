@@ -44,7 +44,7 @@ export default async function UserProfile({ profileId }: IProps) {
                 </div>
 
                 {/*BADGES AND BADGES MODAL */}
-                <div className="flex justify-center gap-4 text-black">
+                <div className="flex justify-center gap-4 text-primary">
                     {[0, 1, 2].map((value, index) => (
                         <Badge
                             key={index}

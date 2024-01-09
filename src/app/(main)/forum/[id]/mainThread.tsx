@@ -7,6 +7,7 @@ import { IPost } from '@/types/postTypes'
 import timeAgo from '@/utils/timeAgo'
 import UpdownVote from './updownVote'
 import AvailableRewards from '@/components/availableRewards'
+import PostContent from '@/components/postContent'
 
 interface IProps {
     post: IPost
@@ -34,8 +35,10 @@ export default function MainThread({ post }: IProps) {
                 </div>
 
                 {/* BODY */}
-                <div dangerouslySetInnerHTML={{ __html: post.contentMessage }}>
-                </div>
+
+                <PostContent
+                    content={post.contentMessage}
+                />
 
                 {/* POST FOOTER */}
                 <div className="flex flex-wrap gap-4 justify-between items-center">

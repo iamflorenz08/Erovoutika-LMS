@@ -71,7 +71,7 @@ export default function Conversation({ receiver, chatRoom }: IProps) {
                 <h1 className="font-bold text-[16px] capitalize">{receiver.fullName.first} {receiver.fullName.last}</h1>
             </div>
 
-            <div className="flex flex-grow flex-col-reverse bg-white overflow-y-auto">
+            <div className="flex flex-grow-0 flex-col-reverse bg-white overflow-y-auto">
                 <div>
                     {isLoading ? 'Loading' : messages.map((message, index) => (
                         <Message

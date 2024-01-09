@@ -27,7 +27,7 @@ export default function Badge({ badge, availableBadges, index }: IProps) {
                 onClick={() => status === 'authenticated' && data.user._id === profileId && setModal(true)}
             >
                 {currentBadge ?
-                    <div className='relative group'>
+                    <div className='relative group text-black'>
                         <div
                             className='absolute left-1/2 translate-x-[-50%] top-24
                          bg-white rounded-lg shadow-tooltip px-4 py-2 min-w-fit 
