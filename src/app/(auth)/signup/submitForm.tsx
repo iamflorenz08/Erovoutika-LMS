@@ -13,7 +13,7 @@ export default function submitForm() {
 
     useEffect(() => {
         if (error.statusCode >= 400)
-            throw new Error('Erenigga')
+            throw new Error('Error')
     }, [error])
 
     const submit = async (userDetails: IUserDetails): Promise<boolean> => {

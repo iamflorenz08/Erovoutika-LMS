@@ -7,6 +7,7 @@ interface ICheckEmail {
 
 export async function createUserEmail(prevState: any, formData: FormData) {
     const email = formData.get('email')?.toString()
+
     try {
 
         //Returns if email string is empty
@@ -26,6 +27,9 @@ export async function createUserEmail(prevState: any, formData: FormData) {
         console.log(e)
         return { message: "Network error." }
     }
-    
-    return redirect(`/signup/?email=${email}`)
+
+    redirect(`/signup/?email=${email}`)
+    return {
+        message: null
+    }
 }

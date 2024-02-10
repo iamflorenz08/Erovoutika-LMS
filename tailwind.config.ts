@@ -20,10 +20,16 @@ const config: Config = {
         'gray': '#7B7B7B',
         'semi-black': '#303030',
         'dirty-white': "#F9F9F9",
+        'reward': '#E9A23B',
+        'success': '#63C757',
       },
+      boxShadow: {
+        'tooltip': '0 0 20px rgba(0, 0, 0, 0.25)'
+      }
     },
-
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }
 export default config

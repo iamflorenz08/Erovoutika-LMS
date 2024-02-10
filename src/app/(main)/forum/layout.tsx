@@ -4,9 +4,7 @@ type Props = {
 
 const ForumLayout = ({ children }: Props) => {
     return (
-        <section >
-            {children}
-        </section>
+        <>{children}</>
     )
 };
 

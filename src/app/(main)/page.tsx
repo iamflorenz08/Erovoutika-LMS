@@ -1,8 +1,5 @@
-'use client'
-import useAxiosAuth from "@/hooks/useAxiosAuth"
-import { useSession } from 'next-auth/react'
 import Dashboard from "./dashboard/page"
 
-export default function Home() {
+export default async function Home() {
   return <Dashboard />
 }

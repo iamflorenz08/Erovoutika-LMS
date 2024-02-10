@@ -4,31 +4,25 @@ import Nodes from "@/images/nodes.png"
 import Logo from "@/images/logo.png";
 import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle'
 import { useRef, useState } from "react";
-import SignUpModal from "@/components/SignUpModal"
+import SignUpModal from "@/components/signUpModal"
 import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
 
-export default function SignIn() {
-  const session = useSession()
+interface IProps {
+  searchParams: { callbackUrl: string }
+}
+
+export default function SignIn({ searchParams: { callbackUrl } }: IProps) {
   const [isSignUpModalOpen, setSignUpModalOpen] = useState(false)
-  const router = useRouter()
   const email = useRef<string>()
   const password = useRef<string>()
-  
+
   const handleSubmit = async () => {
     const res = await signIn('credentials', {
       email: email.current,
       password: password.current,
-      redirect: false
+      redirect: true,
+      callbackUrl: callbackUrl || '/'
     })
-
-    if (res?.ok) {
-      router.push('/')
-    }
-    else {
-      password.current = ''
-    }
   }
 
   return (
@@ -103,6 +97,7 @@ export default function SignIn() {
           </div>
 
           <button
+            onClick={() => signIn('google', { callbackUrl: callbackUrl || '/' })}
             className="mt-[24px] w-full rounded-lg text-[20px] py-[15px] font-semibold border text-semi-black border-gray flex justify-center items-center gap-3">
             <FcGoogle />
             Google
