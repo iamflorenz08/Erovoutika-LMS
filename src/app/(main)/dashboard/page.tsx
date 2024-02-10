@@ -14,14 +14,14 @@ const Dashboard = async () => {
           />
 
           <CourseContainer
-            imageUrl={'https://pbs.twimg.com/profile_images/1163911054788833282/AcA2LnWL_400x400.jpg'}
-            text={'Introduction to Laravel'}
+            imageUrl={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/768px-JavaScript-logo.png'}
+            text={'Full Course Javascript'}
             buttonText={'Start'}
           />
 
           <CourseContainer
-            imageUrl={'https://pbs.twimg.com/profile_images/1163911054788833282/AcA2LnWL_400x400.jpg'}
-            text={'Introduction to Laravel'}
+            imageUrl={'https://eira.erovoutika.ph/assets/img/home/rna.png'}
+            text={'Robotics and Autumation'}
             buttonText={'Start'}
           />
 
