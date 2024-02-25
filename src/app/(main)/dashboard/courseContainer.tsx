@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface CourseContainerProps {
@@ -8,18 +10,19 @@ interface CourseContainerProps {
 
 export default function CourseContainer({ imageUrl, text, buttonText }: CourseContainerProps) {
   return (
-    <div className="flex h-[168px] bg-white rounded-lg shadow-md">
-      <img src={imageUrl} alt="Image" className="w-[168px] sm:w-[200px] h-[168px] rounded-l-lg" />
-      <div className="flex flex-col justify-between w-3/4 p-4">
-        <div>
-          <p className="text-lg font-semibold">{text}</p>
-        </div>
-        <div className="flex justify-end">
-          <button className="text-white py-2 px-4 rounded-lg bg-primary">
-            {buttonText}
-          </button>
-        </div>
+    <div className="group flex flex-col gap-4 p-4 bg-white rounded-lg border border-gray border-opacity-20 h-[224px] relative overflow-hidden">
+      <div className="relative h-[112px] w-full bg-slate-100">
+        <Image className="object-cover " src={imageUrl} alt="image" fill />
       </div>
+      <h1 className="font-medium text-xl line-clamp-2">
+        {text}
+      </h1>
+
+      <Link href={'/'}
+        className="absolute inset-0 bg-primary bg-opacity-50 flex opacity-0 group-hover:opacity-100
+        justify-center items-center h-full font-bold text-xl text-white duration-300">
+        View course
+      </Link>
     </div>
   );
 

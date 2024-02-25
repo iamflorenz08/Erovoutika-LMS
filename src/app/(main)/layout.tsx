@@ -1,4 +1,5 @@
-import Sidebar from "@/components/sidebar";
+'use client'
+import Sidebar from "@/components/Sidebar";
 import NavBar from "@/components/navBar";
 
 interface IProps {
@@ -7,17 +8,22 @@ interface IProps {
 
 export default function layout({ children }: IProps) {
     return (
-        <div className="flex w-full bg-red-300 h-screen max-h-screen">
-            <div className="shadow-md z-50 bg-white">
-                <Sidebar />
-            </div>
-
-            <main className="w-full bg-[#F4F7FE] flex flex-col">
-                <NavBar />
-                <div className="h-full overflow-auto mt-2">
-                    {children}
+        <>
+            <div className="flex h-screen">
+                <div className="shadow-md z-50 bg-white w-fit">
+                    <Sidebar />
                 </div>
-            </main>
-        </div>
+
+                <main className="bg-[#F4F7FE] flex flex-col w-full">
+                    <div className="h-fit">
+                        <NavBar />
+                    </div>
+                    <div className="overflow-auto h-full">
+                        {children}
+                    </div>
+                </main>
+            </div>
+        </>
+
     )
 }
