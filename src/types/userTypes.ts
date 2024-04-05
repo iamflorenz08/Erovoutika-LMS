@@ -22,5 +22,7 @@ export interface IUser {
     birthDate: IBirthDate,
     gender: string,
     currentBadges: Array<IBadge>,
-    availableBadges: Array<IBadge>
+    availableBadges: Array<IBadge>,
+    roles?: 'learner' | 'instructor' | 'admin',
+    interests?: Array<string>
 }

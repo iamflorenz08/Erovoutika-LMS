@@ -26,3 +26,7 @@ select:-webkit-autofill:focus {
 .swiper-button-next {
   color: black !important;
 }
+
+.bg-border {
+  border: solid 1px #EAEAEA;
+}

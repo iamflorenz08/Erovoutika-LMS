@@ -4,12 +4,14 @@ import { Navigation } from "swiper/modules";
 import CourseCard from "@/components/courseCard";
 import { MdOutlineArrowBackIos } from "@react-icons/all-files/md/MdOutlineArrowBackIos";
 import { MdOutlineArrowForwardIos } from "@react-icons/all-files/md/MdOutlineArrowForwardIos";
+import { ICourse } from "@/types/course";
 
 interface IProps {
   id: string;
+  courses?: Array<ICourse>;
 }
 
-export default function CourseSlider({ id }: IProps) {
+export default function CourseSlider({ id, courses }: IProps) {
   return (
     <div className="absolute w-full h-full flex">
       <button className={`${"swiper-prev-" + id} disabled:hidden`}>
@@ -17,7 +19,7 @@ export default function CourseSlider({ id }: IProps) {
       </button>
 
       <Swiper
-        className="h-full"
+        className="h-full w-full"
         modules={[Navigation]}
         slidesPerView={1}
         spaceBetween={16}
@@ -46,27 +48,11 @@ export default function CourseSlider({ id }: IProps) {
           },
         }}
       >
-        <SwiperSlide className="p-2">
-          <CourseCard />
-        </SwiperSlide>
-
-        <SwiperSlide className="p-2">
-          <CourseCard />
-        </SwiperSlide>
-        <SwiperSlide className="p-2">
-          <CourseCard />
-        </SwiperSlide>
-        <SwiperSlide className="p-2">
-          <CourseCard />
-        </SwiperSlide>
-
-        <SwiperSlide className="p-2">
-          <CourseCard />
-        </SwiperSlide>
-
-        <SwiperSlide className="p-2">
-          <CourseCard />
-        </SwiperSlide>
+        {courses?.map((course) => (
+          <SwiperSlide key={course._id} className="p-2">
+            <CourseCard course={course} />
+          </SwiperSlide>
+        ))}
       </Swiper>
       <button className={`${"swiper-next-" + id} disabled:hidden`}>
         <MdOutlineArrowForwardIos size={24} />

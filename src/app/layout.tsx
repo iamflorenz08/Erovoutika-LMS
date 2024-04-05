@@ -1,25 +1,23 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import Providers from './Providers'
-import 'swiper/css';
-import 'swiper/css/navigation';
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import Providers from "./Providers";
+import "swiper/css";
+import "swiper/css/navigation";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Ero Hub',
-}
+  title: "Ero Hub",
+};
 
 interface IProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
-export default function RootLayout({
-  children,
-}: IProps) {
+export default function RootLayout({ children }: IProps) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <head>
         <link
           rel="stylesheet"
@@ -27,10 +25,8 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
-  )
+  );
 }
