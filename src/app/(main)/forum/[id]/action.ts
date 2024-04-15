@@ -3,7 +3,7 @@ import z from 'zod'
 import { ICommentStatus } from './commentSection'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 export const addComment = async (prevState: any, formData: FormData) => {
     const session = await getServerSession(authOptions)
@@ -121,5 +121,24 @@ export const saveDeleteThread = async (save: boolean, postId: string) => {
         revalidatePath('/forum')
     } catch (e) {
         console.log(e)
+    }
+}
+
+export const readReward = async () => {
+    try {
+        const session = await getServerSession(authOptions)
+        const res = await fetch(`${process.env.API_URI}/api/v1/points/read-reward`, {
+            method: 'PATCH',
+            headers: {
+                'authorization': 'Bearer ' + session?.user.tokens.accessToken
+            }
+        })
+        if (!res.ok) throw new Error()
+
+        revalidateTag('user')
+        return null
+    } catch (error) {
+        console.log(error)
+        return null
     }
 }

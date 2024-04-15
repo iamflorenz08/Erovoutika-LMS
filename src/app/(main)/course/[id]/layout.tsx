@@ -1,7 +1,6 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import React from "react";
-import Provider from "./Provider";
+import Provider from "./provider";
 
 interface IProps {
   params: { id: string };

@@ -69,6 +69,7 @@ export default function CourseSeries({ courseId, courseTopics }: IProps) {
                 topicId={topic._id}
                 courseId={courseId}
                 courseContents={topic.contents}
+                topicTitle={topic.title}
               />
             ))}
 

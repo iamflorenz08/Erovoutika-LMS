@@ -24,7 +24,7 @@ const Sidebar = () => {
   };
 
   const getRole = () => {
-    return "learner";
+    return "admin";
   };
 
   const sidebarPages = [
@@ -50,6 +50,13 @@ const Sidebar = () => {
       role: ["admin"],
     },
     {
+      name: "Course Report",
+      href: "/course-report",
+      icon: <RiDashboardLine />,
+      current: segment === "course-report",
+      role: ["admin"],
+    },
+    {
       name: "Users",
       href: "/users",
       icon: <RiDashboardLine />,
@@ -57,10 +64,17 @@ const Sidebar = () => {
       role: ["admin"],
     },
     {
-      name: "Reports",
-      href: "/reports",
+      name: "Logs",
+      href: "/logs",
       icon: <RiDashboardLine />,
-      current: segment === "reports",
+      current: segment === "logs",
+      role: ["admin"],
+    },
+    {
+      name: "Community Review",
+      href: "/community-review",
+      icon: <RiDashboardLine />,
+      current: segment === "community-review",
       role: ["admin"],
     },
     {

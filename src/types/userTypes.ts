@@ -16,6 +16,13 @@ export interface IBadge {
     imageURL: string
 }
 
+export interface ILevelInfo {
+    level?: number,
+    maxPoints?: number,
+    points?: number,
+    label?: string,
+}
+
 export interface IUser {
     _id: string,
     fullName: IFullname
@@ -23,6 +30,8 @@ export interface IUser {
     gender: string,
     currentBadges: Array<IBadge>,
     availableBadges: Array<IBadge>,
-    roles?: 'learner' | 'instructor' | 'admin',
-    interests?: Array<string>
+    role?: 'learner' | 'instructor' | 'admin',
+    interests?: Array<string>,
+    levelInfo?: ILevelInfo,
+    createdAt?: Date,
 }

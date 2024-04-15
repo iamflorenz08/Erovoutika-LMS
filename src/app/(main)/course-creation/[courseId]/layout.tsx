@@ -1,6 +1,7 @@
 import Navigation from "./navigation";
 import CourseDetails from "./courseDetails";
 import { Suspense } from "react";
+import CourseIdHandler from "./courseIdHandler";
 
 interface IProps {
   children: React.ReactNode;
@@ -11,6 +12,7 @@ export default async function layout({ children, params }: IProps) {
   //   await new Promise((res) => setTimeout(res, 2000));
   return (
     <>
+      <CourseIdHandler />
       <div className="flex flex-col gap-8 h-full">
         <Suspense fallback={"Loading"}>
           <div>

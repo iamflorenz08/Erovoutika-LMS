@@ -1,3 +1,4 @@
+"use client";
 import useDropDown from "@/hooks/useDropDown";
 import { IoCaretDown } from "@react-icons/all-files/io5/IoCaretDown";
 import { useEffect, useRef, useState } from "react";
@@ -31,10 +32,10 @@ export default function CustomSelect({ className, options, onChange }: IProps) {
       >
         <div className="flex gap-2">
           <span className="text-[#7B7B7B]">
-            {options?.[selectedIndex].icon}
+            {options?.[selectedIndex]?.icon}
           </span>
           <h1 className="text-[#7B7B7B] font-medium">
-            {options?.[selectedIndex].text}
+            {options?.[selectedIndex]?.text}
           </h1>
         </div>
         <span>

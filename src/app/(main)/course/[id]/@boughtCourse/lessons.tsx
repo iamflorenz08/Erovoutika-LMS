@@ -7,6 +7,8 @@ import { RiCodeBoxLine } from "@react-icons/all-files/ri/RiCodeBoxLine";
 import { useContext, useEffect, useState } from "react";
 import { ITopic } from "@/types/course";
 import { SelectTopicContext } from "@/contexts/SelectTopicContext";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const icons = {
   text: <IoDocumentTextOutline color={"#006AD4"} size={24} />,
@@ -17,15 +19,13 @@ const icons = {
 
 interface IProps {
   topic?: ITopic;
+  courseId?: string;
+  topicId?: string;
 }
 
-export default function Lessons({ topic }: IProps) {
+export default function Lessons({ topic, courseId, topicId }: IProps) {
   const [showLessons, setShowLessons] = useState<boolean>(false);
   const [topicContent, setTopicContent] = useContext(SelectTopicContext);
-
-  useEffect(() => {
-    (topic?.contents?.length ?? 0) > 0 && setTopicContent(topic?.contents?.[0]);
-  }, [topic]);
   return (
     <div className="border border-gray border-opacity-20">
       <button

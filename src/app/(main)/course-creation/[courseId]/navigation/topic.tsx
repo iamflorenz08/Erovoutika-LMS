@@ -10,8 +10,9 @@ import { GoPencil } from "@react-icons/all-files/go/GoPencil";
 import { GoCodeSquare } from "@react-icons/all-files/go/GoCodeSquare";
 import { useEffect, useRef, useState } from "react";
 import LessonModal from "./_modals/lessonModal";
-import { ContentType, IContent, ICourse } from "@/types/course";
+import { ContentType, IContent, ICourse, ITopic } from "@/types/course";
 import AssesmentModal from "./_modals/assesmentModal";
+import useUpdateCourseTopic from "@/hooks/useUpdateCourseTopic";
 
 const icons = {
   text: <IoDocumentTextOutline color={"#006AD4"} size={24} />,
@@ -50,6 +51,7 @@ interface IProps {
   topicId?: string;
   courseId?: string;
   courseContents?: Array<IContent>;
+  topicTitle?: string;
 }
 
 export default function Topic({
@@ -59,6 +61,7 @@ export default function Topic({
   topicId,
   courseId,
   courseContents,
+  topicTitle,
 }: IProps) {
   const isOpen = index === i;
   const modal = useRef<any>(null);
@@ -67,6 +70,12 @@ export default function Topic({
   );
   const [content, setContent] = useState<IContent | undefined>(undefined);
   const [modalType, setModalType] = useState<ContentType>();
+  const [topicDetails, setTopicDetails] = useState<ITopic>({
+    _id: topicId,
+    title: topicTitle,
+  });
+
+  const updateTopicDetails = useUpdateCourseTopic(topicDetails);
 
   const handleExit = () => {
     modal.current.close();
@@ -90,7 +99,13 @@ export default function Topic({
         onClick={() => setIndex(i)}
         className="flex w-full p-4 justify-between items-center"
       >
-        <span className="font-medium">Topic #1</span>
+        <input
+          className="font-medium"
+          onChange={(e) =>
+            setTopicDetails({ ...topicDetails, title: e.target.value })
+          }
+          value={topicDetails.title}
+        />
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ bounce: 0 }}
