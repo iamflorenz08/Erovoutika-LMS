@@ -1,4 +1,4 @@
-export const fetchWithToken = (url: string, token: number) => fetch(url, {
+export const fetchWithToken = (url: string, token: string) => fetch(`${process.env.NEXT_PUBLIC_API_URI}${url}`, {
     headers: {
         'Content-Type': 'application/json',
         'authorization': 'Bearer ' + token

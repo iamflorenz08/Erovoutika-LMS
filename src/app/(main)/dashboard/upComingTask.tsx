@@ -5,7 +5,7 @@ const UpComingTaskContainer = () => {
   return (
     <div
       className="flex flex-col w-[432px] h-[345px] bg-white rounded-lg shadow-md py-[22px] px-[28px]">
-      <h1 className="font-bold text-[34px]">Upcoming Task</h1>
+      <h1 className="font-bold text-xl">Upcoming Task</h1>
       <div className='h-full my-[30px] grid grid-rows-3'>
 
         <div className='flex items-center gap-3'>

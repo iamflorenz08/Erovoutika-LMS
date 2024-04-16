@@ -19,3 +19,14 @@ select:-webkit-autofill:focus {
   color: white;
 }
 
+.swiper-button-prev {
+  color: black !important;
+}
+
+.swiper-button-next {
+  color: black !important;
+}
+
+.bg-border {
+  border: solid 1px #EAEAEA;
+}

@@ -1,23 +1,31 @@
-import Sidebar from "@/components/sidebar";
+import Sidebar from "@/components/Sidebar";
 import NavBar from "@/components/navBar";
+import InterestsModal from "./interestsModal";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import CartSidebar from "./_cartSidebar/cartSidebar";
 
 interface IProps {
-    children: React.ReactNode
+  children: React.ReactNode;
 }
 
-export default function layout({ children }: IProps) {
-    return (
-        <div className="flex w-full bg-red-300 h-screen max-h-screen">
-            <div className="shadow-md z-50 bg-white">
-                <Sidebar />
-            </div>
-
-            <main className="w-full bg-[#F4F7FE] flex flex-col">
-                <NavBar />
-                <div className="h-full overflow-auto mt-2">
-                    {children}
-                </div>
-            </main>
+export default async function layout({ children }: IProps) {
+  return (
+    <>
+      <InterestsModal />
+      <div className="flex h-screen">
+        <div className="shadow-md z-50 bg-white w-fit">
+          <Sidebar />
         </div>
-    )
+
+        <main className="bg-[#F4F7FE] flex flex-col w-full">
+          <div className="h-fit">
+            <NavBar />
+          </div>
+          <div className="overflow-auto h-full">{children}</div>
+        </main>
+      </div>
+      <CartSidebar />
+    </>
+  );
 }
