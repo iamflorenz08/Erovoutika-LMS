@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Providers from "./Providers";
 import "swiper/css";
 import "swiper/css/navigation";
+import DailyLoginReward from "@/components/dailyLoginReward";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,10 @@ export default function RootLayout({ children }: IProps) {
         />
       </head>
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <DailyLoginReward />
+          {children}
+        </Providers>
       </body>
     </html>
   );
