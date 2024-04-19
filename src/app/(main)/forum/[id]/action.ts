@@ -5,6 +5,9 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { revalidatePath, revalidateTag } from 'next/cache'
 
+
+export type VoteType = "upvote" | "downvote" | null;
+
 export const addComment = async (prevState: any, formData: FormData) => {
     const session = await getServerSession(authOptions)
     const result: ICommentStatus = {
@@ -61,9 +64,9 @@ export const addComment = async (prevState: any, formData: FormData) => {
     return result
 }
 
-export const addVote = async (postId: string, voteType: string | undefined) => {
-    const session = await getServerSession(authOptions)
+export const addVote = async (postId: string | null = null, commentId: string | null = null, voteType: VoteType) => {
     try {
+        const session = await getServerSession(authOptions)
         const res = await fetch(`${process.env.API_URI}/api/v1/posts/vote`, {
             method: 'POST',
             headers: {
@@ -71,14 +74,14 @@ export const addVote = async (postId: string, voteType: string | undefined) => {
                 'authorization': 'Bearer ' + session?.user.tokens.accessToken
             },
             body: JSON.stringify({
-                userId: session?.user._id,
                 postId,
+                commentId,
                 type: voteType
             })
         })
         const data = await res.json()
         if (!res.ok) throw new Error(data.message)
-        revalidatePath('/forum')
+        revalidateTag('post')
     } catch (e: any) {
         console.log(e)
     }
@@ -135,6 +138,24 @@ export const readReward = async () => {
         })
         if (!res.ok) throw new Error()
 
+        revalidateTag('user')
+        return null
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
+export const acceptAnswer = async (commentId: string | undefined) => {
+    try {
+        const session = await getServerSession(authOptions)
+        const res = await fetch(`${process.env.API_URI}/api/v1/comments/accept/${commentId}`, {
+            method: 'POST',
+            headers: {
+                'authorization': 'Bearer ' + session?.user.tokens.accessToken
+            }
+        })
+        if (!res.ok) throw new Error()
         revalidateTag('user')
         return null
     } catch (error) {

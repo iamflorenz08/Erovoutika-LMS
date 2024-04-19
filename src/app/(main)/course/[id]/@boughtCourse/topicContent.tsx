@@ -5,11 +5,19 @@ import { IAnswerQuiz } from "@/types/quiz";
 import { formatDate } from "@/utils/dateUtils";
 import { fetchWithToken } from "@/utils/fetcher";
 import { useSession } from "next-auth/react";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import StartQuizButton from "./startQuizButton";
+import { useInView, useScroll } from "framer-motion";
+import { finishReadingContent } from "./action";
+import { useParams } from "next/navigation";
 
 export default function TopicContent() {
+  const params: { id: string } = useParams();
+  const bottomRef = useRef(null);
+  const isInView = useInView(bottomRef);
+
+  const [isAcceptable, setIsAcceptable] = useState<boolean>(false);
   const { data: session, status } = useSession();
   const [topicContent, setTopicContent] = useContext(SelectTopicContext);
   const { data, isLoading }: { data: Array<IAnswerQuiz>; isLoading: boolean } =
@@ -20,6 +28,25 @@ export default function TopicContent() {
           : null,
       (url) => fetchWithToken(url, session?.user.tokens.accessToken || "")
     );
+
+  useEffect(() => {
+    setIsAcceptable(false);
+    const timeout = setTimeout(() => setIsAcceptable(true), 5000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [topicContent]);
+
+  useEffect(() => {
+    const finishReading = async () => {
+      await finishReadingContent(params.id, topicContent._id);
+    };
+
+    isInView &&
+      isAcceptable &&
+      (topicContent.type === "text" || topicContent.type === "media") &&
+      finishReading();
+  }, [isInView, isAcceptable]);
 
   return (
     <>
@@ -139,6 +166,8 @@ export default function TopicContent() {
           </div>
         </>
       )}
+
+      <div ref={bottomRef} />
     </>
   );
 }

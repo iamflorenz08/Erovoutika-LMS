@@ -50,8 +50,10 @@ export default async function UserProfile({ profileId }: IProps) {
             </h1>
             <h2 className="font-light text-gray">Student</h2>
             <div className="max-w-[240px] w-full">
-              <div className="flex justify-between">
-                <span>Level {user.levelInfo?.level}</span>
+              <div className="flex justify-between text-gray">
+                <span>
+                  {user.levelInfo?.label} (Lvl {user.levelInfo?.level})
+                </span>
                 <span>
                   {user.levelInfo?.points}/{user.levelInfo?.maxPoints}
                 </span>

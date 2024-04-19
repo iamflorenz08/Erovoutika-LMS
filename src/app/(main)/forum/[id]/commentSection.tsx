@@ -6,8 +6,11 @@ import { useParams } from "next/navigation";
 import useSWR from "swr";
 import { IComment } from "@/types/commentTypes";
 import ReplyInputBox from "./replyInputBox";
-import { useEffect } from "react";
+import { useCallback, useContext, useEffect, useMemo } from "react";
 import { questReward } from "@/app/action";
+import { useSession } from "next-auth/react";
+import { fetchWithoutToken } from "@/utils/fetcher";
+import { PostContext } from "./postContext";
 
 interface IProps {
   showReply: boolean;
@@ -24,16 +27,31 @@ const initialState: ICommentStatus = {
   success: false,
 };
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const findIndexOfGreatest = (array: Array<IComment>) => {
+  let greatest;
+  let indexOfGreatest;
+  for (var i = 0; i < array.length; i++) {
+    if (!greatest || (array[i].updownVoteCount ?? 0) > greatest) {
+      greatest = array[i].updownVoteCount;
+      indexOfGreatest = i;
+    }
+  }
+  return { greatest, indexOfGreatest };
+};
+
 export default function CommentSection({ showReply, setShowReply }: IProps) {
+  const { data: session } = useSession();
   const { id } = useParams();
   const [status, formAction] = useFormState(addComment, initialState);
+  const { post, setPost } = useContext(PostContext);
   const {
     data: comments,
     isLoading,
   }: { data: Array<IComment>; isLoading: boolean } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URI}/api/v1/comments/${id}`,
-    fetcher
+    `/api/v1/comments/${id}${
+      session?.user._id ? "?userId=" + session.user._id : ""
+    }`,
+    fetchWithoutToken
   );
 
   useEffect(() => {
@@ -44,8 +62,16 @@ export default function CommentSection({ showReply, setShowReply }: IProps) {
     }
   }, [status]);
 
+  const haveAcceptedAnswer = useMemo(() => {
+    return comments && comments.some((comment) => comment.isAcceptedAnswer);
+  }, [comments]);
+
   if (isLoading) return "Loading";
 
+  const { greatest: topAnswerVoteCount, indexOfGreatest: topAnswerIndex } =
+    findIndexOfGreatest(comments);
+
+  console.log(haveAcceptedAnswer);
   return (
     <section className="bg-white shadow-md p-4 rounded-md flex flex-col gap-4">
       {/* COMMENT CREATION */}
@@ -66,7 +92,17 @@ export default function CommentSection({ showReply, setShowReply }: IProps) {
       {/* COMMENTS */}
       {comments &&
         comments.map((comment, index) => (
-          <ParentComment key={index} comment={comment} />
+          <ParentComment
+            key={index}
+            isAuthor={post?.author?._id === session?.user._id}
+            haveAcceptedAnswer={haveAcceptedAnswer}
+            comment={comment}
+            isTopAnswer={
+              (topAnswerVoteCount ?? 0) <= 0
+                ? false
+                : (topAnswerVoteCount ?? 0) === comment.updownVoteCount
+            }
+          />
         ))}
     </section>
   );

@@ -25,7 +25,13 @@ export default function ClaimRewardButton({
       onClick={claimReward}
       className="px-6 py-2 disabled:bg-gray disabled:bg-opacity-50 font-semibold disabled:text-black disabled:text-opacity-60 bg-primary text-white rounded-lg"
     >
-      {isDailyQuestRewardClaimed ? "Claimed" : "Claim"}
+      {isLoading ? (
+        <span className="loading loading-spinner loading-md"></span>
+      ) : isDailyQuestRewardClaimed ? (
+        "Claimed"
+      ) : (
+        "Claim"
+      )}
     </button>
   );
 }

@@ -5,4 +5,4 @@ export const fetchWithToken = (url: string, token: string) => fetch(`${process.e
     }
 }).then(res => res.json())
 
-export const fetchWithoutToken = (url: string) => fetch(url).then(res => res.json())
+export const fetchWithoutToken = (url: string) => fetch(`${process.env.NEXT_PUBLIC_API_URI}${url}`).then(res => res.json())

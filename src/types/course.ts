@@ -54,3 +54,12 @@ export interface ICourse {
     skills?: Array<ISkill>
     pricing?: IPricing
 }
+
+export interface ICompletedContent {
+    _id?: string
+    learner?: string
+    courseContent?: string
+    course?: string
+    createdAt?: Date
+    updatedAt?: Date
+}

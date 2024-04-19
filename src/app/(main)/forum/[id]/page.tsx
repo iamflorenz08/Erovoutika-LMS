@@ -4,6 +4,7 @@ import MainThread from "./mainThread";
 import { getServerSession } from "next-auth";
 import { IPost } from "@/types/postTypes";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import Provider from "./provider";
 
 interface IProps {
   params: { id: string };
@@ -19,6 +20,7 @@ const getPost = async (
       userId ? "?userId=" + userId : ""
     }`,
     {
+      next: { tags: ["post"] },
       headers: {
         authorization: "Bearer " + accessToken,
       },
@@ -53,15 +55,17 @@ export default async function page({ params }: IProps) {
   }
 
   return (
-    <section className="flex gap-6 px-6">
-      {/* THREAD STARTER INFO AND SUBSCRIBE THREAD */}
-      <ThreadStartInfo author={post.author} postId={params.id} />
+    <Provider post={post}>
+      <section className="flex gap-6 px-6">
+        {/* THREAD STARTER INFO AND SUBSCRIBE THREAD */}
+        <ThreadStartInfo author={post.author} postId={params.id} />
 
-      {/* Main Thread and Comments */}
-      <MainThread post={post} />
+        {/* Main Thread and Comments */}
+        <MainThread post={post} />
 
-      {/* Related Threads or Forums */}
-      <RelatedThreads postId={params.id} />
-    </section>
+        {/* Related Threads or Forums */}
+        <RelatedThreads postId={params.id} />
+      </section>
+    </Provider>
   );
 }

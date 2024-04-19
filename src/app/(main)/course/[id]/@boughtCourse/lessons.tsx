@@ -5,10 +5,10 @@ import { SlPicture } from "@react-icons/all-files/sl/SlPicture";
 import { LuPencilLine } from "@react-icons/all-files/lu/LuPencilLine";
 import { RiCodeBoxLine } from "@react-icons/all-files/ri/RiCodeBoxLine";
 import { useContext, useEffect, useState } from "react";
-import { ITopic } from "@/types/course";
+import { ICompletedContent, ITopic } from "@/types/course";
 import { SelectTopicContext } from "@/contexts/SelectTopicContext";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { IoCheckmarkCircleOutline } from "@react-icons/all-files/io5/IoCheckmarkCircleOutline";
+import { IoCheckmarkCircle } from "@react-icons/all-files/io5/IoCheckmarkCircle";
 
 const icons = {
   text: <IoDocumentTextOutline color={"#006AD4"} size={24} />,
@@ -21,9 +21,15 @@ interface IProps {
   topic?: ITopic;
   courseId?: string;
   topicId?: string;
+  completedContents?: Array<ICompletedContent>;
 }
 
-export default function Lessons({ topic, courseId, topicId }: IProps) {
+export default function Lessons({
+  topic,
+  courseId,
+  topicId,
+  completedContents,
+}: IProps) {
   const [showLessons, setShowLessons] = useState<boolean>(false);
   const [topicContent, setTopicContent] = useContext(SelectTopicContext);
   return (
@@ -44,13 +50,27 @@ export default function Lessons({ topic, courseId, topicId }: IProps) {
               <button
                 onClick={() => setTopicContent(content)}
                 key={content._id}
-                className={`flex gap-2 items-center p-4 w-full ${
+                className={`flex items-center justify-between p-4 w-full ${
                   (topic.contents?.length ?? 0) - 1 !== index &&
                   "border-b border-gray border-opacity-20"
                 }`}
               >
-                <span>{content.type && icons[content.type]}</span>
-                <span>{content.title}</span>
+                <div className="flex gap-2">
+                  <span>{content.type && icons[content.type]}</span>
+                  <span>{content.title}</span>
+                </div>
+                {completedContents?.some(
+                  (completedContent) =>
+                    completedContent.courseContent === content._id
+                ) ? (
+                  <span className="text-success">
+                    <IoCheckmarkCircle size={24} />
+                  </span>
+                ) : (
+                  <span className="text-gray">
+                    <IoCheckmarkCircleOutline size={24} />
+                  </span>
+                )}
               </button>
             ))}
           </div>
