@@ -17,6 +17,7 @@ import { HiOutlineCheckBadge } from "@react-icons/all-files/hi2/HiOutlineCheckBa
 import { HiCheckBadge } from "@react-icons/all-files/hi2/HiCheckBadge";
 import { signIn, useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
+import { timeAgo } from "@/utils/dateUtils";
 interface IProps {
   comment: IComment;
   isTopAnswer?: boolean;
@@ -88,13 +89,15 @@ export default function ParentComment({
             <h1 className="font-medium">
               {comment.author?.fullName.first} {comment.author?.fullName.last}
             </h1>
-            <span className="text-gray text-sm">5 min ago</span>
+            <span className="text-gray text-sm">
+              {comment.createdAt && timeAgo(new Date(comment.createdAt))}
+            </span>
           </div>
         </div>
 
         <div className="flex gap-[10px]">
           {isAcceptedAnswer && (
-            <span className="bg-[#E9A23B] text-white px-2.5 py-1.5 flex items-center gap-2 rounded-[20px]  font-semibold">
+            <span className="bg-reward text-white px-2.5 py-1.5 flex items-center gap-2 rounded-[20px]  font-semibold">
               <HiOutlineCheckBadge size={20} />
               <span>Accepted Answer</span>
             </span>
@@ -128,7 +131,7 @@ export default function ParentComment({
             <button
               disabled={haveAcceptedAnswer}
               onClick={handleAcceptAnswer}
-              className={`${isAcceptedAnswer && "text-[#E9A23B]"} ${
+              className={`${isAcceptedAnswer && "text-reward"} ${
                 haveAcceptedAnswer &&
                 !isAcceptedAnswer &&
                 "disabled:text-gray disabled:text-opacity-30"

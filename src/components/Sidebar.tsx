@@ -24,7 +24,7 @@ const Sidebar = () => {
   };
 
   const getRole = () => {
-    return "learner";
+    return "admin";
   };
 
   const sidebarPages = [

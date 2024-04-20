@@ -63,6 +63,21 @@ export default function TopicContent() {
         </div>
       )}
 
+      {topicContent.type === "certificate" && (
+        <>
+          <div className="mt-4 flex flex-col border border-gray border-opacity-20 p-4">
+            <span className="font-semibold">Note:</span>
+            <span>Congratulations on successfully completing the course</span>
+          </div>
+
+          <div className="flex justify-center mt-4">
+            <button className="bg-primary text-white px-9 py-2 rounded-md">
+              Claim
+            </button>
+          </div>
+        </>
+      )}
+
       {topicContent.type === "assesment" && (
         <>
           <div className="mt-4 border border-gray border-opacity-20 p-4">

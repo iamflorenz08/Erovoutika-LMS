@@ -16,7 +16,7 @@ export interface ISkill {
     description?: string
 }
 
-export type ContentType = "text" | "media" | "assesment" | "code" | undefined;
+export type ContentType = "text" | "media" | "assesment" | "code" | "certificate" | undefined;
 
 export interface IContent {
     _id?: string,

@@ -4,11 +4,11 @@ import { LuReply } from "@react-icons/all-files/lu/LuReply";
 import { useEffect, useState } from "react";
 import CommentSection from "./commentSection";
 import { IPost } from "@/types/postTypes";
-import timeAgo from "@/utils/timeAgo";
 import UpdownVote from "./updownVote";
 import AvailableRewards from "@/components/availableRewards";
 import PostContent from "@/components/postContent";
 import { readReward } from "./action";
+import { timeAgo } from "@/utils/dateUtils";
 
 interface IProps {
   post: IPost;

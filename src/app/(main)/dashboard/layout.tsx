@@ -1,13 +1,17 @@
-type Props = {
-    children: React.ReactNode
+interface IProps {
+  learner: React.ReactNode;
+  admin: React.ReactNode;
 }
 
-const layout = (props: Props) => {
-    return (
-        <section className="h-full">
-            {props.children}
-        </section>
-    )
+const getRole = () => {
+  return "admin";
+};
+export default function layout({ learner, admin }: IProps) {
+  const role = getRole();
+  return (
+    <>
+      {role === "learner" && learner}
+      {role === "admin" && admin}
+    </>
+  );
 }
-
-export default layout

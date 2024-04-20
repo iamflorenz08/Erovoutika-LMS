@@ -3,7 +3,7 @@ import SearchBar from "@/components/searchBar";
 import React, { useContext, useEffect, useState } from "react";
 import { GoBell } from "@react-icons/all-files/go/GoBell";
 import { IoSearch } from "@react-icons/all-files/io5/IoSearch";
-import ProfileDropDown from "@/app/(main)/dashboard/profileDropDown";
+import ProfileDropDown from "@/app/(main)/dashboard/@learner/profileDropDown";
 import { AiOutlineMessage } from "@react-icons/all-files/ai/AiOutlineMessage";
 import { MdOutlineShoppingCart } from "@react-icons/all-files/md/MdOutlineShoppingCart";
 import ChatBox from "./chat/chatBox";

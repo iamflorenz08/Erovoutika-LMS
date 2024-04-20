@@ -1,6 +1,5 @@
 "use client";
 
-import CourseFormatGroup from "./formats";
 
 export default function Filters() {
   return (
@@ -15,7 +14,34 @@ export default function Filters() {
           <span className="font-medium">Format</span>
         </label>
 
-        <CourseFormatGroup />
+        <div className="flex flex-col gap-2">
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              className="checkbox checkbox-sm [--chkbg:#00008B]"
+              value="selfpaced"
+            />
+            Self-paced
+          </label>
+
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              className="checkbox checkbox-sm [--chkbg:#00008B]"
+              value="live"
+            />
+            Live Virtual Meeting
+          </label>
+
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              className="checkbox checkbox-sm [--chkbg:#00008B]"
+              value="hybrid"
+            />
+            Hybrid
+          </label>
+        </div>
 
         <button className="bg-primary text-white py-2 rounded-md text-xl font-medium">
           Apply

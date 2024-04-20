@@ -21,7 +21,6 @@ export const createAnswerQuiz = async (quizId: string) => {
         if (!res.ok) throw new Error(data.message)
         return data
     } catch (error) {
-        console.log(error)
         return { answerQuizId: null }
     }
 }
@@ -45,7 +44,6 @@ export const finishReadingContent = async (courseId: string | undefined, courseC
         if (!res.ok) throw new Error(data.message)
         revalidateTag('finish_content')
     } catch (error) {
-        console.log(error)
         return
     }
 }

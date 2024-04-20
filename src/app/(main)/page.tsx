@@ -1,4 +1,4 @@
-import Dashboard from "./dashboard/page"
+import Dashboard from "./dashboard/@learner/page"
 
 export default async function Home() {
   return <Dashboard />

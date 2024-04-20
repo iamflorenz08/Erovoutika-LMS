@@ -1,11 +1,13 @@
 // CourseContainer.tsx
 import Image from "next/image";
+import Link from "next/link";
 
 interface CourseContainerProps {
-  courseBanner: string;
-  title: string;
-  format: string;
-  dateRange: string;
+  courseBanner?: string;
+  title?: string;
+  format?: string;
+  dateRange?: string;
+  courseId?: string;
 }
 
 export default function CourseReportContainer({
@@ -13,21 +15,32 @@ export default function CourseReportContainer({
   title,
   format,
   dateRange,
+  courseId,
 }: CourseContainerProps) {
   return (
-    <div className="group relative overflow-hidden  bg-white p-4 h-[280px] gap-6">
-      <div className="h-[120px] relative ">
-        <Image
-          className="rounded-md"
-          src={courseBanner}
-          alt="Course Banner"
-          objectFit="cover"
-          fill
-        />
+    <Link
+      href={"/course-report/" + courseId}
+      className="group relative bg-white p-4 h-[280px] max-w-[272px] bg-border rounded-md flex flex-col"
+    >
+      <div className="min-h-[120px] relative ">
+        {courseBanner && (
+          <Image
+            className="rounded-md"
+            src={courseBanner}
+            alt="Course Banner"
+            objectFit="cover"
+            fill
+          />
+        )}
       </div>
-      <p className="font-semibold mt-3 mb-4 text-[16px]">{title}</p>
-      <p className="mt-1 font-light text-[13px]"> {format}</p>
-      <p className="font-light mt-1 text-[14px]"> {dateRange}</p>
-    </div>
+
+      <div className="flex flex-col justify-between h-full mt-4">
+        <p className="font-medium text-xl line-clamp-2">{title}</p>
+        <div>
+          <p className="font-light text-[13px]">{format}</p>
+          {dateRange && <p className="font-light text-[14px]">{dateRange}</p>}
+        </div>
+      </div>
+    </Link>
   );
 }

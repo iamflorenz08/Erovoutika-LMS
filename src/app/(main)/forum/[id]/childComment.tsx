@@ -4,6 +4,7 @@ import { PiArrowFatDownLight } from "@react-icons/all-files/pi/PiArrowFatDownLig
 import { LuReply } from "@react-icons/all-files/lu/LuReply";
 import { BiDotsVerticalRounded } from "@react-icons/all-files/bi/BiDotsVerticalRounded";
 import { IComment } from "@/types/commentTypes";
+import { timeAgo } from "@/utils/dateUtils";
 
 interface IProps {
   comment: IComment;
@@ -26,7 +27,9 @@ export default function ChildComment({ comment, onClickReply }: IProps) {
             <h1 className="font-medium">
               {comment.author?.fullName.first} {comment.author?.fullName.last}
             </h1>
-            <span className="text-gray text-sm">5 min ago</span>
+            <span className="text-gray text-sm">
+              {comment.createdAt && timeAgo(new Date(comment.createdAt))}
+            </span>
           </div>
         </div>
         {/* <span className="bg-green-700 text-white px-2.5 py-1.5 rounded-[20px] font-semibold">Top Answer</span> */}

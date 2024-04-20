@@ -9,4 +9,5 @@ export interface IComment {
     updownVoteCount?: number,
     vote?: IVote,
     isAcceptedAnswer?: boolean,
+    createdAt?: Date
 }

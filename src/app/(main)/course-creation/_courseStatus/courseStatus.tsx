@@ -70,11 +70,12 @@ export default function CourseStatus({ accessToken }: IProps) {
     isLoading,
     mutate,
   }: { data: Array<ICourse>; isLoading: boolean; mutate: any } = useSWR(
-    `/api/v1/course`,
+    () => (accessToken ? `/api/v1/course` : null),
     (url) => fetchWithToken(url, accessToken ?? "")
   );
   const [courseId, setCourseId] = useContext(CourseIdContext);
-  if (isLoading) return "Loading";
+  if (isLoading && !data) return "Loading";
+  console.log(data);
   const index = data.findIndex((course) => course._id === courseId);
   return (
     <form

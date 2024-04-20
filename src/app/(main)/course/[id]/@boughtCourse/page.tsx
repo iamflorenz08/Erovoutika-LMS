@@ -7,6 +7,7 @@ import React from "react";
 import Lessons from "./lessons";
 import TopicContent from "./topicContent";
 import { fetchFinishedCourseContents } from "./action";
+import ClaimCertficate from "./claimCertficate";
 
 interface IProps {
   children: React.ReactNode;
@@ -25,7 +26,7 @@ export default async function page({
     fetchCourseTopics(courseId),
     fetchFinishedCourseContents(courseId),
   ]);
-  
+
   return (
     <div className="px-6 py-4">
       <div className="flex gap-6">
@@ -41,6 +42,8 @@ export default async function page({
                 completedContents={completedContents}
               />
             ))}
+
+            <ClaimCertficate />
           </div>
         </section>
         <section className="bg-white w-full rounded-lg p-4 h-fit border border-gray border-opacity-20">

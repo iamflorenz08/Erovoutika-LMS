@@ -7,12 +7,8 @@ import { PiArrowsDownUp } from "@react-icons/all-files/pi/PiArrowsDownUp";
 import TagBox from "@/components/tagBox";
 import Link from "next/link";
 import { IPost } from "@/types/postTypes";
-import { useSession } from "next-auth/react";
-import { useCallback, useEffect } from "react";
-import timeAgo from "@/utils/timeAgo";
 import AvailableRewards from "@/components/availableRewards";
-import { useRouter, useSearchParams } from "next/navigation";
-import PostContent from "@/components/postContent";
+import { timeAgo } from "@/utils/dateUtils";
 
 interface IProps {
   posts: Array<IPost>;
