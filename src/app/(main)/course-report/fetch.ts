@@ -1,17 +1,15 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 
-export const fetchCoursesReport = async () => {
+export const fetchCoursesReport = async (limit: number | null = null) => {
     try {
         const session = await getServerSession(authOptions);
-        const res = await fetch(`${process.env.API_URI}/api/v1/course/reports`, {
+        const res = await fetch(`${process.env.API_URI}/api/v1/course/reports${limit ? '?limit=' + limit : ''}`, {
             headers: {
                 authorization: "Bearer " + session?.user.tokens.accessToken,
             },
         });
-
         if (!res.ok) throw new Error("Server error.");
-
         return res.json();
     } catch (error) {
         return [];

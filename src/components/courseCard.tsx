@@ -2,15 +2,17 @@ import { FormatCourseFormat, ICourse } from "@/types/course";
 import { formatPrice } from "@/utils/formatter";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams, usePathname } from "next/navigation";
 
 interface IProps {
   course?: ICourse;
 }
 
 export default function CourseCard({ course }: IProps) {
+  const path = usePathname();
   return (
-    <Link
-      href={"/course/" + course?._id}
+    <Link 
+      href={path + "/" + course?._id}
       className="p-4 bg-white border border-gray border-opacity-20 h-full rounded-lg flex flex-col gap-4 hover:drop-shadow-md hover:shadow-md duration-200"
     >
       <div className="relative h-[120px] rounded-lg overflow-hidden">

@@ -1,12 +1,7 @@
-import { ICourse } from "@/types/course";
-import CourseSlider from "./courseSlider";
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-
-interface IProps {
-  id: "popular" | "recommended" | "all";
-  title: string;
-}
+import CoursesSection from "@/components/coursesSection";
+import { ICourse } from "@/types/course";
+import { getServerSession } from "next-auth";
 
 const fetchCourses = async () => {
   try {
@@ -26,17 +21,16 @@ const fetchCourses = async () => {
     return [];
   }
 };
-export default async function CoursesSection({ title, id }: IProps) {
+
+export default async function page() {
   const courses: Array<ICourse> = await fetchCourses();
   return (
-    <section>
-      <div className="p-4 bg-white border border-gray border-opacity-20 rounded-lg">
-        <h1 className="font-semibold text-xl">{title}</h1>
-      </div>
-
-      <div className="relative h-[360px] mt-4 mx-6 ">
-        <CourseSlider id={id} courses={courses} />
-      </div>
-    </section>
+    <div className="p-4">
+      <CoursesSection
+        id="courseManagement"
+        title="Assigned Courses"
+        courses={courses}
+      />
+    </div>
   );
 }

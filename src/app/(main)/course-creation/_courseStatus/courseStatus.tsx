@@ -4,6 +4,7 @@ import { CourseIdContext } from "@/contexts/CourseIdContext";
 import { updateCourseDetails } from "@/hooks/action";
 import { ICourse } from "@/types/course";
 import { fetchWithToken } from "@/utils/fetcher";
+import { useSession } from "next-auth/react";
 import { useContext, useState } from "react";
 import { useFormStatus } from "react-dom";
 import useSWR, { mutate } from "swr";
@@ -60,22 +61,18 @@ const DeleteButton = () => {
   );
 };
 
-interface IProps {
-  accessToken?: string;
-}
-
-export default function CourseStatus({ accessToken }: IProps) {
+export default function CourseStatus() {
+  const { data: session, status } = useSession();
   const {
     data,
     isLoading,
     mutate,
   }: { data: Array<ICourse>; isLoading: boolean; mutate: any } = useSWR(
-    () => (accessToken ? `/api/v1/course` : null),
-    (url) => fetchWithToken(url, accessToken ?? "")
+    () => (status === "authenticated" ? `/api/v1/course` : null),
+    (url) => fetchWithToken(url, session?.user.tokens.accessToken ?? "")
   );
   const [courseId, setCourseId] = useContext(CourseIdContext);
-  if (isLoading && !data) return "Loading";
-  console.log(data);
+  if (isLoading || !data) return "Loading";
   const index = data.findIndex((course) => course._id === courseId);
   return (
     <form

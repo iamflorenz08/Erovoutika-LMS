@@ -6,12 +6,19 @@ import ChangeRole from "./changeRole";
 
 interface IProps {
   role?: string;
+  page?: string;
 }
-const fetchUsers = async (role: string | undefined) => {
+const fetchUsers = async (
+  role: string | undefined,
+  page: string | undefined
+) => {
   try {
     const session = await getServerSession(authOptions);
     const res = await fetch(
-      `${process.env.API_URI}/api/v1/users?role=${role ?? "all"}`,
+      `${process.env.API_URI}/api/v1/users?limit=10
+      ${role ? "&role=" + role : "&role=all"}${
+        page ? "&page=" + page : "&page=1"
+      }`,
       {
         headers: {
           authorization: "Bearer " + session?.user.tokens.accessToken,
@@ -25,8 +32,8 @@ const fetchUsers = async (role: string | undefined) => {
   }
 };
 
-export default async function UserRows({ role }: IProps) {
-  const users: Array<IUser> = await fetchUsers(role);
+export default async function UserRows({ role, page }: IProps) {
+  const users: Array<IUser> = await fetchUsers(role, page);
   return users.map((user) => (
     <tr key={user._id}>
       <td className="py-2 w-fit">

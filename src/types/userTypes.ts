@@ -35,3 +35,7 @@ export interface IUser {
     levelInfo?: ILevelInfo,
     createdAt?: Date,
 }
+
+export interface IUserCount {
+    userCount?: number
+}

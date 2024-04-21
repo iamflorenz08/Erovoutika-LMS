@@ -4,8 +4,6 @@ import CourseStatus from "./_courseStatus/courseStatus";
 import SelectACourseLabel from "./selectACourseLabel";
 import CreateCourseModal from "./_createCourseModal/createCourseModal";
 import Provider from "./provider";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface IProps {
   children: React.ReactNode;
@@ -13,7 +11,6 @@ interface IProps {
 }
 
 export default async function Layout({ children }: IProps) {
-  const session = await getServerSession(authOptions);
   return (
     <>
       <Provider>
@@ -33,7 +30,7 @@ export default async function Layout({ children }: IProps) {
             </div>
           </div>
           <div className="w-full max-w-[352px]">
-            <CourseStatus accessToken={session?.user.tokens.accessToken} />
+            <CourseStatus />
           </div>
         </div>
       </Provider>

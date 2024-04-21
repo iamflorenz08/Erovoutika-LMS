@@ -1,35 +1,49 @@
 import { HiOutlineArrowRight } from "@react-icons/all-files/hi/HiOutlineArrowRight";
 import RecentlyVisitedCard from "../recentlyVisitedCard";
+import { FormatCourseFormat, ICourse } from "@/types/course";
+import { fetchCoursesReport } from "../../course-report/fetch";
+import { ILog } from "@/types/log";
+import { fetchLogs } from "../../logs/logRows";
+import { formatDate, formatTime } from "@/utils/dateUtils";
+import Link from "next/link";
 
-export default function page() {
+export default async function page() {
+  const courses: Array<ICourse> = await fetchCoursesReport(7);
+  const logs: Array<ILog> = await fetchLogs(6);
+
   return (
     <div className="flex gap-6 px-6 py-4">
       <div className="w-full flex flex-col gap-6">
         <section className="bg-border rounded-md bg-white p-4 min-h-[512px] max-h-[512px] flex flex-col">
           <h1 className="text-xl font-bold">Course Report</h1>
           <div className="flex flex-col mt-6 gap-2 h-full overflow-auto">
-            <RecentlyVisitedCard />
-            <RecentlyVisitedCard />
-            <RecentlyVisitedCard />
-            <RecentlyVisitedCard />
-            <RecentlyVisitedCard />
-            <RecentlyVisitedCard />
-            <RecentlyVisitedCard />
+            {courses.map((course) => (
+              <RecentlyVisitedCard
+                key={course._id}
+                title={course.name}
+                type={FormatCourseFormat[String(course.format)]}
+                courseId={course._id}
+                banner={course.banner}
+              />
+            ))}
           </div>
           <div className="flex justify-end">
-            <button className="flex justify-end items-center text-[16px] font-bold text-primary gap-2">
+            <Link
+              href={"/course-report"}
+              className="flex justify-end items-center text-[16px] font-bold text-primary gap-2"
+            >
               View All
               <span className="text-lg">
                 <HiOutlineArrowRight />
               </span>
-            </button>
+            </Link>
           </div>
         </section>
 
         <section className="bg-border rounded-md bg-white p-4 min-h-[384px] max-h-[384px] flex flex-col">
           <h1 className="text-xl font-bold">Logs</h1>
 
-          <div className="mt-6">
+          <div className="mt-6 h-full overflow-auto">
             <table className="w-full">
               <thead className="border-b-2">
                 <tr className="text-left">
@@ -39,8 +53,43 @@ export default function page() {
                   <th className="p-2 px-4">Activity</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+                {logs.map((log) => (
+                  <tr key={log._id}>
+                    <td className="py-2 px-4">
+                      <span>
+                        {log.createdAt && formatDate(new Date(log.createdAt))}
+                      </span>
+                    </td>
+                    <td className="py-2 px-4">
+                      <span>
+                        {log.createdAt && formatTime(new Date(log.createdAt))}
+                      </span>
+                    </td>
+                    <td className="py-2 px-4">
+                      <span className="capitalize">
+                        {log.user?.fullName.first} {log.user?.fullName.last}
+                      </span>
+                    </td>
+                    <td className="py-2 px-4">
+                      <span>{log.activity}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
+          </div>
+
+          <div className="flex justify-end">
+            <Link
+              href={"/logs"}
+              className="flex justify-end items-center text-[16px] font-bold text-primary gap-2"
+            >
+              View All
+              <span className="text-lg">
+                <HiOutlineArrowRight />
+              </span>
+            </Link>
           </div>
         </section>
       </div>

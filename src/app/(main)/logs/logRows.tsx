@@ -4,20 +4,24 @@ import { formatDate, formatTime } from "@/utils/dateUtils";
 import { getServerSession } from "next-auth";
 import React from "react";
 
-const fetchLogs = async () => {
+export const fetchLogs = async (limit: number | null = null) => {
   try {
     const session = await getServerSession(authOptions);
-    const res = await fetch(`${process.env.API_URI}/api/v1/logs`, {
-      headers: {
-        authorization: "Bearer " + session?.user.tokens.accessToken,
-      },
-    });
+    const res = await fetch(
+      `${process.env.API_URI}/api/v1/logs${limit ? "?limit=" + limit : ""}`,
+      {
+        headers: {
+          authorization: "Bearer " + session?.user.tokens.accessToken,
+        },
+      }
+    );
     if (!res.ok) return [];
     return res.json();
   } catch (error) {
     return [];
   }
 };
+
 export default async function LogRows() {
   const logs: Array<ILog> = await fetchLogs();
   return logs.map((log) => (

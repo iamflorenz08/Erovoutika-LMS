@@ -13,7 +13,8 @@ export const fetchCourseDetails = async (courseId: string) => {
     return res.json()
 }
 
-export const fetchCourseTopics = async (courseId: string) => {
+export const fetchCourseTopics = async (courseId: string | undefined) => {
+    if (!courseId) return []
     const session = await getServerSession(authOptions)
     const res = await fetch(`${process.env.API_URI}/api/v1/course/topic/${courseId}`, {
         next: { tags: ['courseTopic'] },

@@ -1,15 +1,18 @@
 "use client";
 import { RiDashboardLine } from "@react-icons/all-files/ri/RiDashboardLine";
 import { CgNotes } from "@react-icons/all-files/cg/Cgnotes";
-import { BiBookmarkMinus } from "@react-icons/all-files/bi/BiBookmarkMinus";
 import { BsCalendar } from "@react-icons/all-files/bs/BsCalendar";
-import { FaBookReader } from "@react-icons/all-files/fa/FaBookReader";
-import { FiSettings } from "@react-icons/all-files/fi/FiSettings";
 import { GiHamburgerMenu } from "@react-icons/all-files/gi/GiHamburgerMenu";
 import { useSelectedLayoutSegment } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineClose } from "@react-icons/all-files/ai/AiOutlineClose";
+import { IoDocumentTextOutline } from "@react-icons/all-files/io5/IoDocumentTextOutline";
+import { HiOutlineDocumentChartBar } from "@react-icons/all-files/hi2/HiOutlineDocumentChartBar";
+import { HiOutlineUsers } from "@react-icons/all-files/hi2/HiOutlineUsers";
+import { IoTimeOutline } from "@react-icons/all-files/io5/IoTimeOutline";
+import { IoFlagOutline } from "@react-icons/all-files/io5/IoFlagOutline";
+import { MdOutlineForum } from "@react-icons/all-files/md/MdOutlineForum";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join("");
@@ -38,42 +41,42 @@ const Sidebar = () => {
     {
       name: "Course Management",
       href: "/course-management",
-      icon: <RiDashboardLine />,
+      icon: <IoDocumentTextOutline />,
       current: segment === "course-management",
       role: ["instructor"],
     },
     {
       name: "Course Creation",
       href: "/course-creation",
-      icon: <RiDashboardLine />,
+      icon: <IoDocumentTextOutline />,
       current: segment === "course-creation",
       role: ["admin"],
     },
     {
       name: "Course Report",
       href: "/course-report",
-      icon: <RiDashboardLine />,
+      icon: <HiOutlineDocumentChartBar />,
       current: segment === "course-report",
-      role: ["admin"],
+      role: ["admin", "instructor"],
     },
     {
       name: "Users",
       href: "/users",
-      icon: <RiDashboardLine />,
+      icon: <HiOutlineUsers />,
       current: segment === "users",
       role: ["admin"],
     },
     {
       name: "Logs",
       href: "/logs",
-      icon: <RiDashboardLine />,
+      icon: <IoTimeOutline />,
       current: segment === "logs",
       role: ["admin"],
     },
     {
       name: "Community Review",
       href: "/community-review",
-      icon: <RiDashboardLine />,
+      icon: <IoFlagOutline />,
       current: segment === "community-review",
       role: ["admin"],
     },
@@ -94,7 +97,7 @@ const Sidebar = () => {
     {
       name: "Forum",
       href: "/forum",
-      icon: <BiBookmarkMinus />,
+      icon: <MdOutlineForum />,
       current: segment === "forum",
       role: ["learner", "instructor", "admin"],
     },
@@ -119,7 +122,7 @@ const Sidebar = () => {
 
         <ul role="list" className="flex flex-1 flex-col gap-y-4 p-4">
           <li>
-            <ul role="list" className="-mx-2 space-y-6">
+            <ul role="list" className="-mx-2 space-y-6 text-nowrap">
               {sidebarPages.map(
                 (option, index) =>
                   option.role.includes(getRole()) && (
