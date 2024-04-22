@@ -27,6 +27,16 @@ export default async function page({
     fetchFinishedCourseContents(courseId),
   ]);
 
+  //Get all the contents in each topic
+  const contents = topics
+    .map((topic) => {
+      return topic.contents;
+    })
+    .flat(1);
+
+  //Matches if the completed content is equal to the number of contents
+  const isCourseCompleted = contents.length === completedContents.length;
+
   return (
     <div className="px-6 py-4">
       <div className="flex gap-6">
@@ -43,7 +53,9 @@ export default async function page({
               />
             ))}
 
-            <ClaimCertficate />
+            <ClaimCertficate
+              isClaimable={contents.length > 0 ? isCourseCompleted : false}
+            />
           </div>
         </section>
         <section className="bg-white w-full rounded-lg p-4 h-fit border border-gray border-opacity-20">

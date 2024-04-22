@@ -4,8 +4,8 @@ import { IoDocumentTextOutline } from "@react-icons/all-files/io5/IoDocumentText
 import { SlPicture } from "@react-icons/all-files/sl/SlPicture";
 import { LuPencilLine } from "@react-icons/all-files/lu/LuPencilLine";
 import { RiCodeBoxLine } from "@react-icons/all-files/ri/RiCodeBoxLine";
-import { useContext, useEffect, useState } from "react";
-import { ICompletedContent, ITopic } from "@/types/course";
+import { SetStateAction, useContext, useEffect, useState } from "react";
+import { ICompletedContent, IContent, ITopic } from "@/types/course";
 import { SelectTopicContext } from "@/contexts/SelectTopicContext";
 import { IoCheckmarkCircleOutline } from "@react-icons/all-files/io5/IoCheckmarkCircleOutline";
 import { IoCheckmarkCircle } from "@react-icons/all-files/io5/IoCheckmarkCircle";
@@ -31,7 +31,10 @@ export default function Lessons({
   completedContents,
 }: IProps) {
   const [showLessons, setShowLessons] = useState<boolean>(false);
-  const [topicContent, setTopicContent] = useContext(SelectTopicContext);
+  const [topicContent, setTopicContent]: [
+    topicContent: IContent,
+    setTopicContent: React.Dispatch<SetStateAction<IContent>>
+  ] = useContext(SelectTopicContext);
 
   return (
     <div className="border border-gray border-opacity-20">

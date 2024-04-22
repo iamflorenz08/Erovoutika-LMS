@@ -1,13 +1,20 @@
 "use client";
 import { IoCheckmarkCircle } from "@react-icons/all-files/io5/IoCheckmarkCircle";
 import { PiCaretDown } from "@react-icons/all-files/pi/PiCaretDown";
-import { useContext, useState } from "react";
+import { SetStateAction, useContext, useState } from "react";
 import { HiOutlineTrophy } from "@react-icons/all-files/hi2/HiOutlineTrophy";
 import { SelectTopicContext } from "@/contexts/SelectTopicContext";
+import { IContent } from "@/types/course";
 
-export default function ClaimCertficate() {
+interface IProps {
+  isClaimable?: boolean;
+}
+export default function ClaimCertficate({ isClaimable }: IProps) {
   const [showLessons, setShowLessons] = useState<boolean>(false);
-  const [topicContent, setTopicContent] = useContext(SelectTopicContext);
+  const [topicContent, setTopicContent]: [
+    topicContent: IContent,
+    setTopicContent: React.Dispatch<SetStateAction<IContent>>
+  ] = useContext(SelectTopicContext);
   return (
     <div className="border border-gray border-opacity-20">
       <button
@@ -27,6 +34,7 @@ export default function ClaimCertficate() {
                 setTopicContent({
                   title: "Claim your certificate",
                   type: "certificate",
+                  isCourseCompleted: isClaimable,
                 })
               }
               className={`flex items-center justify-between p-4 w-full`}
@@ -37,9 +45,11 @@ export default function ClaimCertficate() {
                 </span>
                 <span>Claim your course certificate</span>
               </div>
-              <span className="text-success">
-                <IoCheckmarkCircle size={24} />
-              </span>
+              {isClaimable && (
+                <span className="text-success">
+                  <IoCheckmarkCircle size={24} />
+                </span>
+              )}
             </button>
           </div>
         </div>

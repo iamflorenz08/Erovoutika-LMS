@@ -28,6 +28,7 @@ export interface IContent {
     coding?: string,
     course?: string,
     topic?: string,
+    isCourseCompleted?: boolean
 }
 
 export interface ITopic {

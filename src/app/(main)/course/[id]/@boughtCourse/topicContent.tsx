@@ -5,12 +5,13 @@ import { IAnswerQuiz } from "@/types/quiz";
 import { formatDate } from "@/utils/dateUtils";
 import { fetchWithToken } from "@/utils/fetcher";
 import { useSession } from "next-auth/react";
-import { useContext, useEffect, useRef, useState } from "react";
+import { SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import StartQuizButton from "./startQuizButton";
-import { useInView, useScroll } from "framer-motion";
-import { finishReadingContent } from "./action";
+import { useInView } from "framer-motion";
+import { finishReadingContent, generateCertificate } from "./action";
 import { useParams } from "next/navigation";
+import { IContent } from "@/types/course";
 
 export default function TopicContent() {
   const params: { id: string } = useParams();
@@ -19,11 +20,16 @@ export default function TopicContent() {
 
   const [isAcceptable, setIsAcceptable] = useState<boolean>(false);
   const { data: session, status } = useSession();
-  const [topicContent, setTopicContent] = useContext(SelectTopicContext);
+  const [topicContent, setTopicContent]: [
+    topicContent: IContent,
+    setTopicContent: React.Dispatch<SetStateAction<IContent>>
+  ] = useContext(SelectTopicContext);
   const { data, isLoading }: { data: Array<IAnswerQuiz>; isLoading: boolean } =
     useSWR(
       () =>
-        topicContent.type === "assesment" && status === "authenticated"
+        topicContent.type === "assesment" &&
+        topicContent.assesment &&
+        status === "authenticated"
           ? `/api/v1/course/assesment/progress/${topicContent.assesment._id}`
           : null,
       (url) => fetchWithToken(url, session?.user.tokens.accessToken || "")
@@ -48,6 +54,28 @@ export default function TopicContent() {
       finishReading();
   }, [isInView, isAcceptable]);
 
+  const handleGenerateCertificate = async () => {
+    if (!params.id) throw new Error("No course ID.");
+    if (status !== "authenticated") throw new Error("Not authorized.");
+    let anchor = document.createElement("a");
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URI}/api/v1/course/certificate/${params.id}`,
+      {
+        headers: {
+          authorization: "Bearer " + session?.user.tokens.accessToken,
+        },
+      }
+    )
+      .then((res) => res.blob())
+      .then((blob) => {
+        let objectUrl = window.URL.createObjectURL(blob);
+        anchor.href = objectUrl;
+        anchor.download = "erohub-certificate.pdf";
+        anchor.click();
+        window.URL.revokeObjectURL(objectUrl);
+      });
+  };
+
   return (
     <>
       <h1 className="font-semibold text-xl">{topicContent.title}</h1>
@@ -67,11 +95,21 @@ export default function TopicContent() {
         <>
           <div className="mt-4 flex flex-col border border-gray border-opacity-20 p-4">
             <span className="font-semibold">Note:</span>
-            <span>Congratulations on successfully completing the course</span>
+            {topicContent.isCourseCompleted ? (
+              <span>Congratulations on successfully completing the course</span>
+            ) : (
+              <span>
+                Finish all of the course contents before making a claim.
+              </span>
+            )}
           </div>
 
           <div className="flex justify-center mt-4">
-            <button className="bg-primary text-white px-9 py-2 rounded-md">
+            <button
+              disabled={!topicContent.isCourseCompleted}
+              onClick={handleGenerateCertificate}
+              className="bg-primary text-white px-9 py-2 rounded-md disabled:bg-gray"
+            >
               Claim
             </button>
           </div>
@@ -142,7 +180,7 @@ export default function TopicContent() {
 
           <div className="mt-4 flex justify-center">
             <StartQuizButton
-              quizId={topicContent.assesment._id}
+              quizId={topicContent.assesment?._id}
               isContinue={
                 data && data.some((result) => result.status === "pending")
               }

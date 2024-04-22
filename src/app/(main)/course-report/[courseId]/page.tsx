@@ -2,6 +2,7 @@ import { IoPrintOutline } from "@react-icons/all-files/io5/IoPrintOutline";
 import { fetchCourseReport, fetchCourseStudents } from "../fetch";
 import { ICourseReport, IStudent } from "@/types/courseReport";
 import { formatDate } from "@/utils/dateUtils";
+import { FormatCourseFormat } from "@/types/course";
 
 interface IProps {
   params: { courseId: string };
@@ -15,21 +16,23 @@ export default async function page({ params }: IProps) {
   return (
     <section className="p-4 flex justify-center">
       <div className="px-7 py-4 bg-white w-[920px] bg-border rounded-md p-2">
-        <h1 className="font-medium text-xl">Users</h1>
+        <h1 className="font-medium text-xl">{courseReport.course?.name}</h1>
         <div className="mt-4 flex flex-col gap-4">
           <div className="flex">
             <h2 className="w-[95px] text-gray">Format</h2>
-            <span className="capitalize">dsadasdas</span>
+            <span className="capitalize">
+              {FormatCourseFormat[String(courseReport.course?.format)]}
+            </span>
           </div>
 
           <div className="flex">
             <h2 className="w-[95px] text-gray">Status</h2>
-            <span className="capitalize">dsadsa</span>
+            <span className="capitalize">{courseReport.course?.status}</span>
           </div>
 
           <div className="flex">
             <h2 className="w-[95px] text-gray">Instructors</h2>
-            <span className="capitalize">Hybrid</span>
+            <span className="capitalize">N/A</span>
           </div>
         </div>
 
@@ -40,7 +43,7 @@ export default async function page({ params }: IProps) {
           </div>
           <div className="flex flex-col items-center">
             <span>Completion Rate</span>
-            <span>{courseReport.completionRate ?? 0}%</span>
+            <span>{courseReport.completionRate?.toFixed(0) ?? 0}%</span>
           </div>
         </div>
 
@@ -76,7 +79,7 @@ export default async function page({ params }: IProps) {
                   </td>
                   <td className="py-2">
                     <span className="capitalize">
-                      {courseStudent.progressPercentage}%
+                      {courseStudent.progressPercentage.toFixed(0)}%
                     </span>
                   </td>
                 </tr>

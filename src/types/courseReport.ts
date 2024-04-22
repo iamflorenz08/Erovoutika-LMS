@@ -2,7 +2,7 @@ import { ICourse } from "./course";
 import { IUser } from "./userTypes";
 
 export interface ICourseReport {
-    course?: IUser
+    course?: ICourse
     studentCount?: number;
     completionRate?: number;
 }
