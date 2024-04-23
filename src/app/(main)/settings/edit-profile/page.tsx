@@ -1,23 +1,30 @@
-import FloatingLabelInput from "@/components/FloatingLabelInput";
-import ChangePicture from "./changePicture";
+import { headers } from "next/headers";
+import EditProfile from "./editProfile";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { IUser } from "@/types/userTypes";
+const fetchUser = async () => {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session) throw new Error("Not authenticated.");
+    const res = await fetch(
+      `${process.env.API_URI}/api/v1/users/${session?.user._id}`,
+      {
+        next: { tags: ["user"] },
+        headers: {
+          Authorization: "Bearer " + session?.user.tokens.accessToken,
+        },
+      }
+    );
 
-export default function page() {
-  return (
-    <>
-      <h1 className="font-semibold text-xl">Edit Profile</h1>
-      <div className="p-4 bg-border mt-4">
-        <div>
-          <h2 className="font-semibold">Profile Image</h2>
-          <div className="mt-2">
-            <ChangePicture />
-          </div>
+    if (!res.ok) throw new Error("Server error");
 
-          <div className="flex flex-col gap-6 w-[448px] mt-4">
-            <FloatingLabelInput id="firstName" label="First name" type="text" />
-            <FloatingLabelInput id="lastName" label="Last name" type="text" />
-          </div>
-        </div>
-      </div>
-    </>
-  );
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+export default async function page() {
+  const user: IUser = await fetchUser();
+  return <EditProfile user={user} />;
 }

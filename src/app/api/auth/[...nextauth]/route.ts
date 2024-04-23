@@ -4,7 +4,6 @@ import { JWT } from "next-auth/jwt"
 import NextAuth from "next-auth/next"
 import Credentials from "next-auth/providers/credentials"
 import GoogleProvider from 'next-auth/providers/google'
-import { cookies } from 'next/headers'
 
 const refreshAccessToken = async (token: JWT): Promise<JWT> => {
     try {

@@ -58,28 +58,3 @@ export const fetchFinishedCourseContents = async (courseId: string) => {
     })
     return res.json()
 }
-
-export const generateCertificate = async (courseId: string | undefined) => {
-    try {
-        if (!courseId) throw new Error('No course ID.')
-        const session = await getServerSession(authOptions)
-        if (!session) throw new Error('Not authorized.')
-
-        const res = await fetch(`${process.env.API_URI}/api/v1/course/certificate/${courseId}`, {
-            headers: {
-                'authorization': 'Bearer ' + session?.user.tokens.accessToken
-            }
-        })
-
-
-        if (!res.ok) {
-            const data = await res.json()
-            throw new Error(data.message)
-        }
-        console.log(await res.json())
-        return true
-    } catch (error) {
-        console.log(error)
-        return false
-    }
-}

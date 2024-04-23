@@ -68,8 +68,8 @@ export default async function page({ params }: IProps) {
                   </td>
                   <td className="py-2">
                     <span className="capitalize">
-                      {courseStudent.user.fullName.first}{" "}
-                      {courseStudent.user.fullName.last}
+                      {courseStudent.user.fullName?.first}{" "}
+                      {courseStudent.user.fullName?.last}
                     </span>
                   </td>
                   <td className="py-2">

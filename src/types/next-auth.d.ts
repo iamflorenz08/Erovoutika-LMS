@@ -22,6 +22,8 @@ interface IUser {
     _id: string,
     email: string,
     fullName: IFullName,
+    profileImage: string,
+    role: 'admin' | 'learner' | 'instructor',
     tokens: IToken
 }
 

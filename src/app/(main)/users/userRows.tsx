@@ -3,6 +3,7 @@ import { IUser } from "@/types/userTypes";
 import { formatDate } from "@/utils/dateUtils";
 import { getServerSession } from "next-auth";
 import ChangeRole from "./changeRole";
+import Image from "next/image";
 
 interface IProps {
   role?: string;
@@ -34,14 +35,24 @@ const fetchUsers = async (
 
 export default async function UserRows({ role, page }: IProps) {
   const users: Array<IUser> = await fetchUsers(role, page);
+  console.log(users);
   return users.map((user) => (
     <tr key={user._id}>
       <td className="py-2 w-fit">
-        <div className="w-6 h-6 bg-gray rounded-full"></div>
+        <div className="w-6 h-6 bg-gray rounded-full relative overflow-hidden">
+          {user.profileImage && (
+            <Image
+              className="object-cover"
+              src={user.profileImage}
+              alt="profile"
+              fill
+            />
+          )}
+        </div>
       </td>
       <td className="py-2">
         <span className="capitalize">
-          {user.fullName.first} {user.fullName.last}
+          {user.fullName?.first} {user.fullName?.last}
         </span>
       </td>
       <td className="py-2">

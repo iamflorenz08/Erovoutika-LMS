@@ -1,6 +1,6 @@
 export interface IFullname {
-    first: string,
-    last: string
+    first?: string,
+    last?: string
 }
 
 export interface IBirthDate {
@@ -24,12 +24,14 @@ export interface ILevelInfo {
 }
 
 export interface IUser {
-    _id: string,
-    fullName: IFullname
-    birthDate: IBirthDate,
-    gender: string,
-    currentBadges: Array<IBadge>,
-    availableBadges: Array<IBadge>,
+    _id?: string,
+    profileImage?: string,
+    email?: string,
+    fullName?: IFullname
+    birthDate?: IBirthDate,
+    gender?: string,
+    currentBadges?: Array<IBadge>,
+    availableBadges?: Array<IBadge>,
     role?: 'learner' | 'instructor' | 'admin',
     interests?: Array<string>,
     levelInfo?: ILevelInfo,

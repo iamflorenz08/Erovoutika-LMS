@@ -45,8 +45,8 @@ export default async function UserProfile({ profileId }: IProps) {
           />
           <div className="flex flex-col items-center justify-center text-center">
             <h1 className="font-medium text-3xl capitalize">
-              {user.fullName.first.toLowerCase()}{" "}
-              {user.fullName.last.toLowerCase()}
+              {user.fullName?.first.toLowerCase()}{" "}
+              {user.fullName?.last.toLowerCase()}
             </h1>
             <h2 className="font-light text-gray">Student</h2>
             <div className="max-w-[240px] w-full">
@@ -77,7 +77,7 @@ export default async function UserProfile({ profileId }: IProps) {
             <Badge
               key={index}
               index={index}
-              badge={user.currentBadges[index]}
+              badge={user.currentBadges?.[index]}
               availableBadges={user.availableBadges}
             />
           ))}

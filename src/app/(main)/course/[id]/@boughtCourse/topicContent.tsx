@@ -9,7 +9,7 @@ import { SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import StartQuizButton from "./startQuizButton";
 import { useInView } from "framer-motion";
-import { finishReadingContent, generateCertificate } from "./action";
+import { finishReadingContent } from "./action";
 import { useParams } from "next/navigation";
 import { IContent } from "@/types/course";
 

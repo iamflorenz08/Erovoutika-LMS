@@ -6,13 +6,19 @@ import Image from "next/image";
 import { useState } from "react";
 
 interface IProps {
-  courseId?: string;
   profileImageSrc?: string;
+  onImageChange?: (url: string) => void;
 }
 
-export default function ChangePicture({ profileImageSrc }: IProps) {
+export default function ChangePicture({
+  profileImageSrc,
+  onImageChange,
+}: IProps) {
   const [uploadPercent, setUploadPercent] = useState<number>(100);
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [imageSrc, setImageSrc] = useState<string | null | undefined>(
+    profileImageSrc
+  );
+
   const uploadBanner = (file: File | null | undefined) => {
     if (!file) return;
     const storageRef = ref(storage, "profiles/" + file.name + "_" + Date.now());
@@ -36,6 +42,7 @@ export default function ChangePicture({ profileImageSrc }: IProps) {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           setImageSrc(url);
+          onImageChange && onImageChange(url);
         });
       }
     );

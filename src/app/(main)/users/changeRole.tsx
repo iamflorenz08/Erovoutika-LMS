@@ -7,7 +7,7 @@ import { IUser } from "@/types/userTypes";
 import { updateRole } from "./action";
 
 interface IProps {
-  userId: string;
+  userId?: string;
   role?: string;
 }
 

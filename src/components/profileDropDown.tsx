@@ -5,7 +5,7 @@ import { FaRegUser } from "@react-icons/all-files/fa/FaRegUser";
 import { IoSettingsOutline } from "@react-icons/all-files/io5/IoSettingsOutline";
 import { PiSignIn } from "@react-icons/all-files/pi/PiSignIn";
 import useDropDown from "@/hooks/useDropDown";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Session } from "next-auth";
 interface ProfileProps {
@@ -15,7 +15,6 @@ interface ProfileProps {
 export default function ProfileDropDown({ data }: ProfileProps) {
   const ref = useRef<any>();
   const [toggle, setToggle] = useDropDown(false, ref);
-
   return (
     <div className="relative">
       <button
@@ -28,7 +27,9 @@ export default function ProfileDropDown({ data }: ProfileProps) {
             {data?.user.fullName.first.toLowerCase()}{" "}
             {data?.user.fullName.last.toLowerCase()}
           </h1>
-          <span className="text-xs">Student</span>
+          <span className="text-xs capitalize">
+            {data?.user.role ?? "learner"}
+          </span>
         </div>
         <FaChevronDown className="hidden md:block text-2xl text-gray " />
       </button>
@@ -51,10 +52,14 @@ export default function ProfileDropDown({ data }: ProfileProps) {
               <FaRegUser size={24} />
               Profile
             </Link>
-            <button className="px-2 py-3 text-left flex items-center gap-2 font-medium hover:bg-[#E9F5FD] rounded-lg duration-300">
+            <Link
+              onClick={() => setToggle(false)}
+              href={"/settings/edit-profile"}
+              className="px-2 py-3 text-left flex items-center gap-2 font-medium hover:bg-[#E9F5FD] rounded-lg duration-300"
+            >
               <IoSettingsOutline size={24} />
               Settings
-            </button>
+            </Link>
           </div>
           <div className="border border-gray border-opacity-10"></div>
           <button
