@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export default async function page() {
   const courses: Array<ICourse> = await fetchCoursesReport(7);
-  const logs: Array<ILog> = await fetchLogs(6);
+  const logs: Array<ILog> = await fetchLogs(5);
 
   return (
     <div className="flex gap-6 px-6 py-4">
@@ -68,7 +68,7 @@ export default async function page() {
                     </td>
                     <td className="py-2 px-4">
                       <span className="capitalize">
-                        {log.user?.fullName.first} {log.user?.fullName.last}
+                        {log.user?.fullName?.first} {log.user?.fullName?.last}
                       </span>
                     </td>
                     <td className="py-2 px-4">

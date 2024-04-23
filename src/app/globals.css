@@ -30,3 +30,8 @@ select:-webkit-autofill:focus {
 .bg-border {
   border: solid 1px #EAEAEA;
 }
+
+.bg-skeleton {
+  background-color: gray;
+  opacity: 0.1;
+}

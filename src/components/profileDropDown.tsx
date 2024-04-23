@@ -3,9 +3,10 @@ import { FaUserCircle } from "@react-icons/all-files/fa/FaUserCircle";
 import { FaChevronDown } from "@react-icons/all-files/fa/FaChevronDown";
 import { FaRegUser } from "@react-icons/all-files/fa/FaRegUser";
 import { IoSettingsOutline } from "@react-icons/all-files/io5/IoSettingsOutline";
+import { HiOutlineDocumentCheck } from "@react-icons/all-files/hi2/HiOutlineDocumentCheck";
 import { PiSignIn } from "@react-icons/all-files/pi/PiSignIn";
 import useDropDown from "@/hooks/useDropDown";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { Session } from "next-auth";
 interface ProfileProps {
@@ -51,6 +52,14 @@ export default function ProfileDropDown({ data }: ProfileProps) {
             >
               <FaRegUser size={24} />
               Profile
+            </Link>
+            <Link
+              onClick={() => setToggle(false)}
+              href={"/verify-certificate"}
+              className="px-2 py-3 text-left flex items-center gap-2 font-medium hover:bg-[#E9F5FD] rounded-lg duration-300"
+            >
+              <HiOutlineDocumentCheck size={24} />
+              Verify certificate
             </Link>
             <Link
               onClick={() => setToggle(false)}
