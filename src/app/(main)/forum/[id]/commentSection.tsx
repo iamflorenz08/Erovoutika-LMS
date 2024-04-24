@@ -71,7 +71,6 @@ export default function CommentSection({ showReply, setShowReply }: IProps) {
   const { greatest: topAnswerVoteCount, indexOfGreatest: topAnswerIndex } =
     findIndexOfGreatest(comments);
 
-  console.log(haveAcceptedAnswer);
   return (
     <section className="bg-white shadow-md p-4 rounded-md flex flex-col gap-4">
       {/* COMMENT CREATION */}

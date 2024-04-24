@@ -1,9 +1,8 @@
-import { IoPrintOutline } from "@react-icons/all-files/io5/IoPrintOutline";
 import { fetchCourseReport, fetchCourseStudents } from "../fetch";
 import { ICourseReport, IStudent } from "@/types/courseReport";
 import { formatDate } from "@/utils/dateUtils";
 import { FormatCourseFormat } from "@/types/course";
-
+import PrintReport from "./printReport";
 interface IProps {
   params: { courseId: string };
 }
@@ -88,10 +87,7 @@ export default async function page({ params }: IProps) {
           </table>
         </div>
 
-        <button className="mt-8 bg-primary text-white py-2 flex justify-center items-center gap-2 rounded-md w-full text-xl font-medium">
-          <IoPrintOutline size={24} />
-          Print Report
-        </button>
+        <PrintReport courseName={courseReport.course?.name} />
       </div>
     </section>
   );

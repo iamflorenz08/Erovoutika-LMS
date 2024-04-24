@@ -35,7 +35,6 @@ const fetchUsers = async (
 
 export default async function UserRows({ role, page }: IProps) {
   const users: Array<IUser> = await fetchUsers(role, page);
-  console.log(users);
   return users.map((user) => (
     <tr key={user._id}>
       <td className="py-2 w-fit">

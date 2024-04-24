@@ -8,8 +8,8 @@ import { AiOutlineMessage } from "@react-icons/all-files/ai/AiOutlineMessage";
 import { MdOutlineShoppingCart } from "@react-icons/all-files/md/MdOutlineShoppingCart";
 import ChatBox from "./chat/chatBox";
 import { signIn, useSession } from "next-auth/react";
-import SocketIO from "@/utils/socketIo";
 import { CartSidebarContext } from "@/contexts/CartSidebarContext";
+import Notification from "./notification/notification";
 
 export default function NavBar() {
   const { data, status } = useSession();
@@ -18,21 +18,6 @@ export default function NavBar() {
   const [isChatboxOpen, setIsChatboxOpen] = useState(false);
   const [isCartSidebarOpen, setIsCartSidebarOpen] =
     useContext(CartSidebarContext);
-
-  useEffect(() => {
-    if (status === "loading" || status === "unauthenticated") return;
-    console.log(status);
-    SocketIO.connect();
-    SocketIO.on("connect", () => {
-      SocketIO.emit("userConnects", {
-        userId: data?.user._id,
-        socketId: SocketIO.id,
-      });
-    });
-    return () => {
-      SocketIO.disconnect();
-    };
-  }, [status]);
 
   const handleSearch = (value: string) => {
     setSearchText(value);
@@ -68,10 +53,8 @@ export default function NavBar() {
               <MdOutlineShoppingCart size={18} />
             </button>
 
-            <button className="p-3 text-[25px] text-black bg-white rounded-lg border border-slate-300">
-              <GoBell size={18} />
-            </button>
-
+            <Notification />
+          
             <button
               onClick={toggleChatBox}
               className="p-3 text-[25px] text-black bg-white rounded-lg border border-slate-300"

@@ -11,6 +11,7 @@ export interface IPost {
     createdAt: Date,
     commentCount: number,
     viewCount: number,
-    updownVoteCount: number
+    updownVoteCount: number,
+    totalVoteCount?: number,
     vote: IVote
 }

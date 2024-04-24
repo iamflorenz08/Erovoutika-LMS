@@ -29,8 +29,8 @@ export default function Posts({ posts }: IProps) {
             <div className="flex gap-4 z-10">
               <Link href={"/profile/" + post.author?._id}>
                 <Image
-                  className="w-12 h-12 object-cover"
-                  src={"/sample_user_icon.png"}
+                  className="w-12 h-12 object-cover rounded-full"
+                  src={post.author?.profileImage ?? "/sample_user_icon.png"}
                   alt="user_icon"
                   width={48}
                   height={48}
@@ -38,10 +38,10 @@ export default function Posts({ posts }: IProps) {
               </Link>
               <div className="flex flex-col">
                 <Link
-                  className="font-medium hover:text-primary-light duration-200"
+                  className="font-medium hover:text-primary-light duration-200 capitalize"
                   href={"/profile/" + post.author?._id}
                 >
-                  {post.author?.fullName.first} {post.author?.fullName.last}
+                  {post.author?.fullName?.first} {post.author?.fullName?.last}
                 </Link>
                 <span className="text-gray text-sm">
                   {timeAgo(new Date(post.createdAt))}
@@ -94,7 +94,7 @@ export default function Posts({ posts }: IProps) {
               </span>
               <span className="flex gap-1 items-center">
                 <PiArrowsDownUp size={24} />
-                {post.updownVoteCount}
+                {post.totalVoteCount}
               </span>
             </div>
           </div>

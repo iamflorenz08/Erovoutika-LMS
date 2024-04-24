@@ -82,7 +82,7 @@ const ChatBox = ({ onClose }: ChatBoxProps) => {
 
   return (
     <div
-      className={`fixed bottom-0 right-6 w-full md:w-[490px] lg:w-[600px] xl:w-[650px] ${window.innerWidth < 768 ? "h-[440px]" : "h-[436px]"
+      className={`fixed bottom-0 right-6 w-full md:w-[490px] lg:w-[600px] xl:w-[650px] ${window.innerWidth < 768 ? "h-[440px]" : "h-[436px] z-50"
         } bg-white border border-slate-300 rounded-lg flex flex-row`}
     >
       <div className="flex-grow border-r border-slate-300">

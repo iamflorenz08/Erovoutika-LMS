@@ -13,6 +13,7 @@ import { HiOutlineUsers } from "@react-icons/all-files/hi2/HiOutlineUsers";
 import { IoTimeOutline } from "@react-icons/all-files/io5/IoTimeOutline";
 import { IoFlagOutline } from "@react-icons/all-files/io5/IoFlagOutline";
 import { MdOutlineForum } from "@react-icons/all-files/md/MdOutlineForum";
+import { IoReceiptOutline } from "@react-icons/all-files/io5/IoReceiptOutline";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join("");
@@ -58,6 +59,13 @@ const Sidebar = () => {
       icon: <HiOutlineDocumentChartBar />,
       current: segment === "course-report",
       role: ["admin", "instructor"],
+    },
+    {
+      name: "Transactions",
+      href: "/transactions",
+      icon: <IoReceiptOutline />,
+      current: segment === "transactions",
+      role: ["admin"],
     },
     {
       name: "Users",

@@ -4,6 +4,7 @@ import InterestsModal from "./interestsModal";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import CartSidebar from "./_cartSidebar/cartSidebar";
+import Socket from "./socket";
 
 interface IProps {
   children: React.ReactNode;
@@ -13,6 +14,7 @@ export default async function layout({ children }: IProps) {
   return (
     <>
       <InterestsModal />
+      <Socket />
       <div className="flex h-screen">
         <div className="shadow-md z-50 bg-white w-fit">
           <Sidebar />

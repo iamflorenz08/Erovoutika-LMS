@@ -18,7 +18,7 @@ export default async function CourseReport() {
               key={course._id}
               courseId={course._id}
               courseBanner={course.banner}
-              title={"Introduction to Laravel"}
+              title={course.name}
               format={FormatCourseFormat[String(course.format)]}
             />
           ))}
