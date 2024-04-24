@@ -23,9 +23,29 @@ export const assignedInstructor = async (instructorId: string | undefined, cours
         if (!res.ok) throw new Error(data.message)
 
         revalidateTag('course')
-        return res.json()
     } catch (error) {
-        console.log(error)
+        return null
+    }
+}
+
+export const unassignedInstructor = async (courseId: string | undefined) => {
+    try {
+        if (!courseId) throw new Error('Missing ids.')
+        const session = await getServerSession(authOptions)
+        const res = await fetch(`${process.env.API_URI}/api/v1/course/${courseId}`, {
+            method: 'PATCH',
+            headers: {
+                'authorization': 'Bearer ' + session?.user.tokens.accessToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                instructor: null
+            })
+        })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.message)
+        revalidateTag('course')
+    } catch (error) {
         return null
     }
 }

@@ -6,12 +6,16 @@ import { getServerSession } from "next-auth";
 const fetchCourses = async () => {
   try {
     const session = await getServerSession(authOptions);
-    const res = await fetch(`${process.env.API_URI}/api/v1/course`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + session?.user.tokens.accessToken,
-      },
-    });
+    if (!session) throw new Error("Not authorized.");
+    const res = await fetch(
+      `${process.env.API_URI}/api/v1/course?instructor=${session?.user._id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + session?.user.tokens.accessToken,
+        },
+      }
+    );
     const data = await res.json();
     if (!res.ok) return [];
 

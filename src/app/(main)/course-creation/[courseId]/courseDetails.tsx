@@ -3,6 +3,7 @@ import { FiEdit } from "@react-icons/all-files/fi/FiEdit";
 import Saving from "./saving";
 import { fetchCourseDetails } from "../action";
 import Instructors from "./instructors";
+import UnassignedButton from "./unassignedButton";
 
 interface IProps {
   courseId: string;
@@ -37,9 +38,10 @@ export default async function CourseDetails({ courseId }: IProps) {
             <h2 className="w-[95px] text-gray">Instructors</h2>
 
             {course.instructor ? (
-              <span className="capitalize">
+              <span className="capitalize flex items-center gap-2">
                 {course.instructor?.fullName?.first}{" "}
                 {course.instructor?.fullName?.last}
+                <UnassignedButton />
               </span>
             ) : (
               <Instructors />

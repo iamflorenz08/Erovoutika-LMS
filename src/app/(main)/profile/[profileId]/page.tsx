@@ -26,24 +26,24 @@ export default async function ProfileIdPage({ params: { profileId } }: IProps) {
             <div className="border border-gray border-opacity-50 p-2 flex font-medium">
               <div className="text-center w-full flex flex-col gap-2">
                 <div className="flex flex-col">
-                  <span>999,999</span>
+                  <span>N/A</span>
                   <span>Points</span>
                 </div>
 
                 <div className="flex flex-col">
-                  <span>999,999</span>
+                  <span>N/A</span>
                   <span>Comments</span>
                 </div>
               </div>
 
               <div className="text-center w-full flex flex-col gap-2">
                 <div className="flex flex-col">
-                  <span>999,999</span>
+                  <span>N/A</span>
                   <span>Posts</span>
                 </div>
 
                 <div className="flex flex-col">
-                  <span>999,999</span>
+                  <span>N/A</span>
                   <span>Finished quest</span>
                 </div>
               </div>

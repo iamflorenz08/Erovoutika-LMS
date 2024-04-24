@@ -2,7 +2,6 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import { revalidateTag } from "next/cache";
-import { RedirectType, redirect } from "next/navigation"
 export const submitAnswer = async (formData: FormData, answerQuestionId: string | undefined, questionIndex: string | undefined) => {
     if (!answerQuestionId || !questionIndex) return null
     try {

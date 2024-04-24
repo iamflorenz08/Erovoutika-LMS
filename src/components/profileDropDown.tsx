@@ -41,7 +41,7 @@ export default function ProfileDropDown({ data }: ProfileProps) {
           className="absolute right-0 bg-white w-[272px] p-4 flex flex-col gap-2 rounded-lg mt-3 shadow-md z-50"
         >
           <h1>
-            Points Balance: <span className="font-semibold">999,999</span>
+            Points Balance: <span className="font-semibold">N/A</span>
           </h1>
           <div className="border border-gray border-opacity-10"></div>
           <div className="flex flex-col">

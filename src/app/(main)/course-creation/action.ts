@@ -1,7 +1,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { getServerSession } from "next-auth"
 
-export const fetchCourseDetails = async (courseId: string) => {
+export const fetchCourseDetails = async (courseId: string | null | undefined) => {
     const session = await getServerSession(authOptions)
     const res = await fetch(`${process.env.API_URI}/api/v1/course/${courseId}`, {
         next: { tags: ['course'] },

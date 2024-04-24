@@ -1,9 +1,14 @@
+import { Suspense } from "react";
 import Feed from "./feed";
 import SortAndFilter from "./sortAndFilter";
 import WatchedThreads from "./watchedThreads";
+import ContentModal from "./contentModal";
+import Categories from "./categories";
+import FeedLoading from "./feedLoading";
+import WatchedThreadLoading from "./watchedThreadLoading";
 
 interface IProps {
-  searchParams: { category: string }
+  searchParams: { category: string };
 }
 
 const Forum = ({ searchParams }: IProps) => {
@@ -14,12 +19,22 @@ const Forum = ({ searchParams }: IProps) => {
         <SortAndFilter />
 
         {/* POST AND THREADS */}
-        <Feed
-          category={searchParams.category}
-        />
+        <div className="w-full flex flex-col gap-4">
+          {/* Thread Creation */}
+          <ContentModal />
+
+          {/* Categories */}
+          <Categories />
+
+          <Suspense key={searchParams.category} fallback={<FeedLoading />}>
+            <Feed category={searchParams.category} />
+          </Suspense>
+        </div>
 
         {/* WATCHED THREADS */}
-        <WatchedThreads />
+        <Suspense fallback={<WatchedThreadLoading />}>
+          <WatchedThreads />
+        </Suspense>
       </div>
     </main>
   );

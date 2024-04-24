@@ -147,34 +147,34 @@ export default function TopicContent() {
           <div className="mt-4 border border-gray border-opacity-20 p-4">
             <div className="flex gap-2">
               <span className="font-semibold">Opened:</span>
-              <span>Tuesday, 5 September 2023, 12:00 AM</span>
+              <span>N/A</span>
             </div>
 
             <div className="flex gap-2">
               <span className="font-semibold">Due:</span>
-              <span>Tuesday, 12 September 2023, 12:00 AM</span>
+              <span>N/A</span>
             </div>
           </div>
 
           <div className="mt-4 border border-gray border-opacity-20 p-4">
             <div className="flex gap-2">
               <span className="font-semibold">Questions:</span>
-              <span>20</span>
+              <span>N/A</span>
             </div>
 
             <div className="flex gap-2">
               <span className="font-semibold">Passing Score:</span>
-              <span>15</span>
+              <span>N/A</span>
             </div>
 
             <div className="flex gap-2">
               <span className="font-semibold">Attempts:</span>
-              <span>2/3</span>
+              <span>N/A</span>
             </div>
 
             <div className="flex gap-2">
               <span className="font-semibold">Total Marks:</span>
-              <span>20</span>
+              <span>N/A</span>
             </div>
           </div>
 

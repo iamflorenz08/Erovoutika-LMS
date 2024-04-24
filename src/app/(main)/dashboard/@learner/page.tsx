@@ -5,6 +5,7 @@ import ToDoListContainer from "./toDoList";
 import UpComingTaskContainer from "./upComingTask";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { ICourseVisited } from "@/types/view";
+import { ICourseProgress } from "@/types/course";
 
 const fetchCourseVisited = async () => {
   try {
@@ -22,8 +23,30 @@ const fetchCourseVisited = async () => {
     return [];
   }
 };
+
+const fetchCourseProgress = async () => {
+  try {
+    const session = await getServerSession(authOptions);
+    const res = await fetch(`${process.env.API_URI}/api/v1/course/progress`, {
+      headers: {
+        Authorization: "Bearer " + session?.user.tokens.accessToken,
+      },
+    });
+    if (!res.ok) throw new Error("Server error.");
+    return res.json();
+  } catch (error) {
+    return [];
+  }
+};
 const Dashboard = async () => {
-  const courseVisited: Array<ICourseVisited> = await fetchCourseVisited();
+  const courseVisitedPromise = fetchCourseVisited();
+  const coursesProgressPromise = fetchCourseProgress();
+
+  const [courseVisited, coursesProgress]: [
+    courseVisited: Array<ICourseVisited>,
+    coursesProgress: Array<ICourseProgress>
+  ] = await Promise.all([courseVisitedPromise, coursesProgressPromise]);
+
   return (
     <div className="flex flex-col px-6 py-4 h-full gap-6">
       <div className="flex flex-col xl:flex-row w-full gap-6">
@@ -55,7 +78,7 @@ const Dashboard = async () => {
 
       <div className="flex flex-col-reverse xl:flex-row w-full gap-6">
         <div className="w-full">
-          <MyCourses />
+          <MyCourses coursesProgress={coursesProgress} />
         </div>
         <div className="flex">
           <UpComingTaskContainer />

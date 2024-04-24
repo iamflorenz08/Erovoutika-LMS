@@ -5,6 +5,7 @@ import { PiChatCircleDotsFill } from "@react-icons/all-files/pi/PiChatCircleDots
 import Badge from "./badge";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import Link from "next/link";
 
 interface IProps {
   profileId: string;
@@ -37,18 +38,18 @@ export default async function UserProfile({ profileId }: IProps) {
       <div className="flex flex-col lg:flex-row gap-4 xl:gap-[120px] lg:justify-between xl:justify-start items-center w-full">
         <div className="flex gap-4 items-center">
           <Image
-            className="h-[120px] w-[120px] object-cover"
-            src={"/sample_user_icon.png"}
+            className="h-[120px] w-[120px] object-cover rounded-full"
+            src={user.profileImage ?? "/sample_user_icon.png"}
             alt="user_icon"
             height={120}
             width={120}
           />
           <div className="flex flex-col items-center justify-center text-center">
             <h1 className="font-medium text-3xl capitalize">
-              {user.fullName?.first.toLowerCase()}{" "}
-              {user.fullName?.last.toLowerCase()}
+              {user.fullName?.first?.toLowerCase()}{" "}
+              {user.fullName?.last?.toLowerCase()}
             </h1>
-            <h2 className="font-light text-gray">Student</h2>
+            <h2 className="font-light text-gray capitalize">{user.role}</h2>
             <div className="max-w-[240px] w-full">
               <div className="flex justify-between text-gray">
                 <span>
@@ -86,10 +87,13 @@ export default async function UserProfile({ profileId }: IProps) {
 
       <div className="flex w-full justify-center xl:w-max lg:min-w-max items-end lg:justify-end xl:min-h-[120px]">
         {session?.user._id === profileId ? (
-          <button className="bg-gray bg-opacity-40 px-4 py-2 flex gap-2 items-center font-medium rounded-lg">
+          <Link
+            href={"/settings/edit-profile"}
+            className="bg-gray bg-opacity-40 px-4 py-2 flex gap-2 items-center font-medium rounded-lg"
+          >
             <HiPencil size={24} />
             Edit Profile
-          </button>
+          </Link>
         ) : (
           <button className="bg-gray bg-opacity-40 px-4 py-2 flex gap-2 items-center font-medium rounded-lg">
             <PiChatCircleDotsFill size={24} />

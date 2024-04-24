@@ -14,12 +14,14 @@ import { IoTimeOutline } from "@react-icons/all-files/io5/IoTimeOutline";
 import { IoFlagOutline } from "@react-icons/all-files/io5/IoFlagOutline";
 import { MdOutlineForum } from "@react-icons/all-files/md/MdOutlineForum";
 import { IoReceiptOutline } from "@react-icons/all-files/io5/IoReceiptOutline";
+import { useSession } from "next-auth/react";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join("");
 }
 
 const Sidebar = () => {
+  const { data: session, status } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const segment = useSelectedLayoutSegment();
 
@@ -28,7 +30,7 @@ const Sidebar = () => {
   };
 
   const getRole = () => {
-    return "admin";
+    return session?.user.role ?? "learner";
   };
 
   const sidebarPages = [
@@ -58,7 +60,7 @@ const Sidebar = () => {
       href: "/course-report",
       icon: <HiOutlineDocumentChartBar />,
       current: segment === "course-report",
-      role: ["admin", "instructor"],
+      role: ["admin"],
     },
     {
       name: "Transactions",
@@ -124,34 +126,35 @@ const Sidebar = () => {
           isMenuOpen ? "block" : "hidden"
         }`}
       >
-        <div className="flex h-16 shrink-0 items-center justify-center text-2xl font-bold text-primary">
+        <div className=" mt-4 flex h-16 shrink-0 items-center justify-center text-2xl font-bold text-primary">
           <h1>EroHub</h1>
         </div>
 
-        <ul role="list" className="flex flex-1 flex-col gap-y-4 p-4">
+        <ul role="list" className="flex flex-1 flex-col gap-y-4 px-4">
           <li>
             <ul role="list" className="-mx-2 space-y-6 text-nowrap">
-              {sidebarPages.map(
-                (option, index) =>
-                  option.role.includes(getRole()) && (
-                    <li key={index}>
-                      <Link
-                        href={option.href}
-                        className={classNames(
-                          option.current
-                            ? "bg-primary text-white m-2"
-                            : "text-[#A3AED0] hover:text-primary hover:primary",
-                          "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
-                        )}
-                      >
-                        <div className="text-2xl group-hover:text-primary h-6 w-6">
-                          {option.icon}
-                        </div>
-                        <div className="text-[16px]">{option.name}</div>
-                      </Link>
-                    </li>
-                  )
-              )}
+              {status === "authenticated" &&
+                sidebarPages.map(
+                  (option, index) =>
+                    option.role.includes(getRole()) && (
+                      <li key={index}>
+                        <Link
+                          href={option.href}
+                          className={classNames(
+                            option.current
+                              ? "bg-primary text-white m-2"
+                              : "text-[#A3AED0] hover:text-primary hover:primary",
+                            "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                          )}
+                        >
+                          <div className="text-2xl group-hover:text-primary h-6 w-6">
+                            {option.icon}
+                          </div>
+                          <div className="text-[16px]">{option.name}</div>
+                        </Link>
+                      </li>
+                    )
+                )}
             </ul>
           </li>
         </ul>

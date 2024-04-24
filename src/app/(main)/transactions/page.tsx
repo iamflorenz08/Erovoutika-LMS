@@ -5,6 +5,7 @@ import { ITransaction } from "@/types/transaction";
 import Image from "next/image";
 import { formatDate } from "@/utils/dateUtils";
 import { IoPrintOutline } from "@react-icons/all-files/io5/IoPrintOutline";
+import Pagination from "@/components/pagination";
 
 interface IProps {
   searchParams: { search: string };
@@ -107,7 +108,7 @@ export default async function page({ searchParams }: IProps) {
         </div>
       </div>
 
-      {/* <Pagination pages={pages} /> */}
+      <Pagination pages={1} />
     </section>
   );
 }

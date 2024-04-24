@@ -44,7 +44,7 @@ export default function CustomSelect({ className, options, onChange }: IProps) {
       </button>
 
       {isOpen && (
-        <div className="absolute mt-2 bg-border bg-white shadow-md drop-shadow-md w-cotent w-full rounded">
+        <div className="absolute mt-2 bg-border bg-white shadow-md drop-shadow-md w-cotent w-full rounded z-50">
           <ul>
             {options &&
               options.map((option, index) => (

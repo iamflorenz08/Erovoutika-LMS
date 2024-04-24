@@ -26,18 +26,10 @@ const getPosts = async (
 export default async function Feed({ category }: IProps) {
   const session = await getServerSession(authOptions);
   const posts: IPost[] = await getPosts(session?.user._id, category);
+
   return (
     <>
-      <div className="w-full flex flex-col gap-4">
-        {/* Thread Creation */}
-        <ContentModal />
-
-        {/* Categories */}
-        <Categories />
-
-        {/* Posts */}
-        <Posts posts={posts} />
-      </div>
+      <Posts posts={posts} />
     </>
   );
 }

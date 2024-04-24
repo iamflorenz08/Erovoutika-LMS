@@ -23,7 +23,7 @@ export const fetchLogs = async (limit: number | null = null) => {
 };
 
 export default async function LogRows() {
-  const logs: Array<ILog> = await fetchLogs();
+  const logs: Array<ILog> = await fetchLogs(10);
   return logs.map((log) => (
     <tr key={log._id}>
       <td className="py-2 px-4">
@@ -34,7 +34,7 @@ export default async function LogRows() {
       </td>
       <td className="py-2 px-4">
         <span className="capitalize">
-          {log.user?.fullName.first} {log.user?.fullName.last}
+          {log.user?.fullName?.first} {log.user?.fullName?.last}
         </span>
       </td>
       <td className="py-2 px-4">

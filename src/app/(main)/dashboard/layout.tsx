@@ -1,17 +1,17 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+
 interface IProps {
   learner: React.ReactNode;
   admin: React.ReactNode;
 }
 
-const getRole = () => {
-  return "learner";
-};
-export default function layout({ learner, admin }: IProps) {
-  const role = getRole();
+export default async function layout({ learner, admin }: IProps) {
+  const session = await getServerSession(authOptions);
   return (
     <>
-      {role === "learner" && learner}
-      {role === "admin" && admin}
+      {session?.user.role === "learner" && learner}
+      {session?.user.role === "admin" && admin}
     </>
   );
 }

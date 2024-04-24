@@ -72,3 +72,13 @@ export interface ICompletedContent {
     createdAt?: Date
     updatedAt?: Date
 }
+
+export interface ICourseProgress {
+    _id?: string;
+    user?: string;
+    course?: ICourse;
+    createdAt?: Date;
+    updatedAt?: Date;
+    progressPercentage?: number;
+}
+
