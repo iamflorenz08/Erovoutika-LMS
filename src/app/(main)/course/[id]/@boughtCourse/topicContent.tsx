@@ -12,6 +12,8 @@ import { useInView } from "framer-motion";
 import { finishReadingContent } from "./action";
 import { useParams } from "next/navigation";
 import { IContent } from "@/types/course";
+import Image from "next/image";
+import { FaRegFilePdf } from "@react-icons/all-files/fa6/FaRegFilePdf";
 
 export default function TopicContent() {
   const params: { id: string } = useParams();
@@ -89,6 +91,30 @@ export default function TopicContent() {
             />
           )}
         </div>
+      )}
+
+      {topicContent.type === "media" && (
+        <>
+          {topicContent.media?.fileType?.includes("image/") && (
+            <div className="h-96 w-full mt-4 relative bg-gray bg-opacity-15">
+              {topicContent.media?.fileUrl && (
+                <Image
+                  className="object-contain"
+                  src={topicContent.media?.fileUrl}
+                  alt="file"
+                  fill
+                />
+              )}
+            </div>
+          )}
+
+          {topicContent.media?.fileType?.includes("application/pdf") && (
+            <div className="h-14 border-2 border-primary-light flex gap-4 items-center px-4 rounded-md text-primary-light mt-4">
+              <FaRegFilePdf size={24} />
+              <span>{topicContent.media.fileName}</span>
+            </div>
+          )}
+        </>
       )}
 
       {topicContent.type === "certificate" && (

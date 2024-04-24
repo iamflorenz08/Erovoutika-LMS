@@ -10,6 +10,12 @@ export const FormatCourseFormat: IKey = {
     'hybrid': 'Hybrid Class',
 }
 
+export interface IFile {
+    fileUrl?: string;
+    fileType?: string;
+    fileName?: string;
+}
+
 export interface ISkill {
     dummyId?: string,
     name?: string,
@@ -23,7 +29,7 @@ export interface IContent {
     title?: string,
     type?: ContentType
     text?: string,
-    media?: string,
+    media?: IFile | null,
     assesment?: IQuiz,
     coding?: string,
     course?: string,

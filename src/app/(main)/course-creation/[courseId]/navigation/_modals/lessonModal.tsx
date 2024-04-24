@@ -1,9 +1,9 @@
 import PostContentManagement from "@/components/postContentManagement";
 import { ContentType, IContent } from "@/types/course";
-import { title } from "process";
 import { useState } from "react";
 import { addContent } from "../action";
 import { useFormStatus } from "react-dom";
+import Media from "./media";
 
 interface IProps {
   topicId?: string;
@@ -28,6 +28,7 @@ const SubmitButton = () => {
     </button>
   );
 };
+
 export default function LessonModal({
   topicId,
   onExit,
@@ -44,6 +45,7 @@ export default function LessonModal({
     }
   );
 
+  console.log(content);
   return (
     <div className="modal-box !max-w-[816px] w-full p-0 rounded-lg">
       <div className="flex justify-between p-4 border-b">
@@ -103,19 +105,32 @@ export default function LessonModal({
           <option value={"media"}>Image & Video</option>
         </select>
 
-        <div className="mt-4">
-          <PostContentManagement
-            className="h-[368px]"
-            content={content.text}
-            onUpdate={(text) =>
-              setContent({
-                ...content,
-                type: "text",
-                text,
-              })
-            }
-          />
-        </div>
+        {content.type === "text" && (
+          <div className="mt-4">
+            <PostContentManagement
+              className="h-[368px]"
+              content={content.text}
+              onUpdate={(text) =>
+                setContent({
+                  ...content,
+                  type: "text",
+                  text,
+                })
+              }
+            />
+          </div>
+        )}
+
+        {content.type === "media" && (
+          <div className="flex flex-col">
+            <Media
+              value={content.media}
+              onChange={(file) => {
+                setContent({ ...content, type: "media", media: file });
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

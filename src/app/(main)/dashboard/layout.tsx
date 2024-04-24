@@ -4,7 +4,7 @@ interface IProps {
 }
 
 const getRole = () => {
-  return "admin";
+  return "learner";
 };
 export default function layout({ learner, admin }: IProps) {
   const role = getRole();

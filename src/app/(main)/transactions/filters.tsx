@@ -11,6 +11,9 @@ export default function Filters() {
     search: "",
     dateRange: [null, null],
   });
+
+
+  
   return (
     <>
       <div className="flex gap-4">
