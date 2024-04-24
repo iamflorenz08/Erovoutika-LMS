@@ -2,6 +2,7 @@ import { FormatCourseFormat, ICourse } from "@/types/course";
 import { FiEdit } from "@react-icons/all-files/fi/FiEdit";
 import Saving from "./saving";
 import { fetchCourseDetails } from "../action";
+import Instructors from "./instructors";
 
 interface IProps {
   courseId: string;
@@ -31,10 +32,20 @@ export default async function CourseDetails({ courseId }: IProps) {
           <span className="capitalize">{course.status}</span>
         </div>
 
-        <div className="flex">
-          <h2 className="w-[95px] text-gray">Instructors</h2>
-          <span className="capitalize">Hybrid</span>
-        </div>
+        {course.format !== "self-paced" && (
+          <div className="flex">
+            <h2 className="w-[95px] text-gray">Instructors</h2>
+
+            {course.instructor ? (
+              <span className="capitalize">
+                {course.instructor?.fullName?.first}{" "}
+                {course.instructor?.fullName?.last}
+              </span>
+            ) : (
+              <Instructors />
+            )}
+          </div>
+        )}
       </div>
     </>
   );

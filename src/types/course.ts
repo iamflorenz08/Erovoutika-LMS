@@ -1,4 +1,5 @@
 import { IQuiz } from "./quiz";
+import { IUser } from "./userTypes";
 
 export interface IKey {
     [key: string]: string
@@ -59,7 +60,8 @@ export interface ICourse {
     description?: string,
     language?: string,
     skills?: Array<ISkill>
-    pricing?: IPricing
+    pricing?: IPricing,
+    instructor?: IUser
 }
 
 export interface ICompletedContent {
