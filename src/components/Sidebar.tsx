@@ -15,6 +15,7 @@ import { IoFlagOutline } from "@react-icons/all-files/io5/IoFlagOutline";
 import { MdOutlineForum } from "@react-icons/all-files/md/MdOutlineForum";
 import { IoReceiptOutline } from "@react-icons/all-files/io5/IoReceiptOutline";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join("");
@@ -126,8 +127,10 @@ const Sidebar = () => {
           isMenuOpen ? "block" : "hidden"
         }`}
       >
-        <div className=" mt-4 flex h-16 shrink-0 items-center justify-center text-2xl font-bold text-primary">
-          <h1>EroHub</h1>
+        <div className="mt-4 flex shrink-0 items-center justify-center text-2xl font-bold text-primary p-9">
+          <div className="h-9 w-[126px] relative">
+            <Image src={"/erohub_logo.png"} alt="logo" fill />
+          </div>
         </div>
 
         <ul role="list" className="flex flex-1 flex-col gap-y-4 px-4">

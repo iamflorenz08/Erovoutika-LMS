@@ -28,7 +28,7 @@ export default function List({ onClose }: IProps) {
             className="flex gap-4"
           >
             <div
-              className={`w-[64px] h-[64px] bg-gray bg-opacity-10 relative overflow-hidden  ${
+              className={`w-full h-full max-w-[64px] max-h-[64px] bg-gray bg-opacity-10 relative overflow-hidden  ${
                 notification.user ? "rounded-full" : "rounded-md"
               }`}
             >

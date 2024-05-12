@@ -16,10 +16,10 @@ const fetchCourseVisited = async () => {
         Authorization: "Bearer " + session?.user.tokens.accessToken,
       },
     });
-
-    if (!res.ok) throw new Error("Server error.");
+    if (!res.ok) throw new Error("Server error");
     return res.json();
   } catch (error) {
+    console.log(error);
     return [];
   }
 };
@@ -32,7 +32,7 @@ const fetchCourseProgress = async () => {
         Authorization: "Bearer " + session?.user.tokens.accessToken,
       },
     });
-    if (!res.ok) throw new Error("Server error.");
+    if (!res.ok) throw new Error("Server error");
     return res.json();
   } catch (error) {
     return [];

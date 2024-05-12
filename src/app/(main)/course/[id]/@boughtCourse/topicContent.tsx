@@ -14,12 +14,14 @@ import { useParams } from "next/navigation";
 import { IContent } from "@/types/course";
 import Image from "next/image";
 import { FaRegFilePdf } from "@react-icons/all-files/fa6/FaRegFilePdf";
+import { BsArrowsFullscreen } from "@react-icons/all-files/bs/BsArrowsFullscreen";
+import TopicContentFullScreen from "./topicContentFullScreen";
 
 export default function TopicContent() {
   const params: { id: string } = useParams();
   const bottomRef = useRef(null);
   const isInView = useInView(bottomRef);
-
+  const [fullScreenModal, setFullScreenModal] = useState<boolean>(false);
   const [isAcceptable, setIsAcceptable] = useState<boolean>(false);
   const { data: session, status } = useSession();
   const [topicContent, setTopicContent]: [
@@ -80,7 +82,26 @@ export default function TopicContent() {
 
   return (
     <>
-      <h1 className="font-semibold text-xl">{topicContent.title}</h1>
+      {fullScreenModal && (
+        <TopicContentFullScreen
+          onClose={() => setFullScreenModal(false)}
+          topicContent={topicContent}
+        />
+      )}
+
+      <div className="flex justify-between items-center">
+        <h1 className="font-semibold text-xl">{topicContent.title}</h1>
+        {topicContent.type === "text" && (
+          <button
+            onClick={() => setFullScreenModal(true)}
+            className="flex gap-[10px] bg-primary text-white px-4 py-2 rounded-md items-center text-xl font-medium"
+          >
+            <BsArrowsFullscreen />
+            View
+          </button>
+        )}
+      </div>
+
       {topicContent.type === "text" && (
         <div className="mt-4 flex flex-col gap-4 border border-gray border-opacity-20">
           {topicContent.text && (
